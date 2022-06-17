@@ -4,9 +4,12 @@ import { fetchAndActivate } from "firebase/remote-config";
 import { firebaseRemoteConfig } from "./";
 
 const fetchAndActivateRemoteConfig = async () => {
-  const remoteConfig = await fetchAndActivate(firebaseRemoteConfig);
-
-  return getValue(firebaseRemoteConfig);
+  await fetchAndActivate(firebaseRemoteConfig);
 };
 
-export { fetchAndActivateRemoteConfig };
+// Fetch and activate remote config once for the entire application
+fetchAndActivateRemoteConfig();
+
+export const getConfigValue = (value) => {
+  return getValue(firebaseRemoteConfig, value);
+};
