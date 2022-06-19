@@ -5,7 +5,7 @@ const LandingPageContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
   width: 80vw;
 
   margin: 0 auto;
@@ -18,6 +18,8 @@ const LandingPageContainer = styled.div`
     p {
       font-size: 1.25rem;
       width: 75%;
+      font-weight: 300;
+      margin: 2rem 0;
     }
   }
 

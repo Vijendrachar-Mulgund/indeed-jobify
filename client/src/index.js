@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { initBrowserFingerprint } from "./fingerprintjs/fpjsInit";
+import { initBrowserFingerprint } from "./fingerprintjs";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import "normalize.css";
