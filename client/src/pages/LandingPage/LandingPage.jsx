@@ -1,5 +1,5 @@
 import { LandingPageContainer } from "./../../styles/LandingPage/LandingPageContainer";
-
+import Button from "./../../components/modules/Button/Button";
 import LandingPageCover from "./../../assets/Images/LandingPage_cover.svg";
 
 const LandingPage = () => {
@@ -12,6 +12,7 @@ const LandingPage = () => {
           culpa dolores, quaerat, libero reprehenderit quia. Aspernatur earum, numquam accusamus ipsa ratione alias
           impedit pariatur.
         </p>
+        <Button type="button" label="Login / Signup" />
       </div>
       <div className="right-side">
         <img className="landingpage-cover" src={LandingPageCover} alt="Landing-Page-cover" />
