@@ -2,6 +2,8 @@ import { LandingPageContainer } from "./../../styles/LandingPage/LandingPageCont
 import Button from "./../../components/modules/Button/Button";
 import LandingPageCover from "./../../assets/Images/LandingPage_cover.svg";
 
+import { AiOutlineLogin } from "react-icons/ai";
+
 const LandingPage = () => {
   return (
     <LandingPageContainer>
@@ -12,7 +14,7 @@ const LandingPage = () => {
           culpa dolores, quaerat, libero reprehenderit quia. Aspernatur earum, numquam accusamus ipsa ratione alias
           impedit pariatur.
         </p>
-        <Button type="button" label="Login / Signup" />
+        <Button type="button" label="Login / Signup" icon={<AiOutlineLogin />} />
       </div>
       <div className="right-side">
         <img className="landingpage-cover" src={LandingPageCover} alt="Landing-Page-cover" />

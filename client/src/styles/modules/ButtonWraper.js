@@ -5,6 +5,10 @@ const ButtonWrapper = styled.button`
   outline: none;
   padding: 0.5rem 1rem;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   background: transparent;
 
   border-radius: 0.3rem;
@@ -13,6 +17,12 @@ const ButtonWrapper = styled.button`
 
   transition: all 0.25s ease-out;
   color: var(--primary-color);
+
+  .icon-container {
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem 0 0;
+  }
 
   &:hover {
     background: var(--primary-color);
