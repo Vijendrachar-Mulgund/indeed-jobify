@@ -1,19 +1,31 @@
-import { LandingPageContainer } from "./../../styles/LandingPage/LandingPageContainer";
+import { useEffect, useState } from "react";
+import { getConfigValue } from "./../../firebase/remoteConfig";
+
 import Button from "./../../components/modules/Button/Button";
 import LandingPageCover from "./../../assets/Images/LandingPage_cover.svg";
+
+import { LandingPageContainer } from "./../../styles/LandingPage/LandingPageContainer";
 
 import { AiOutlineLogin } from "react-icons/ai";
 
 const LandingPage = () => {
+  const [welcomeMessage, setWelcomeMessage] = useState({});
+
+  useEffect(() => {
+    const messageFromConfig = JSON.parse(getConfigValue("landingPage")?.asString());
+
+    setWelcomeMessage(messageFromConfig);
+  }, []);
+
+  useEffect(() => {
+    console.log("This is a welcome message - ", welcomeMessage);
+  }, [welcomeMessage]);
+
   return (
     <LandingPageContainer>
       <div className="left-side">
-        <h3>Welcome to Indeed Jobify</h3>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque quo eum excepturi recusandae, cumque tempore
-          culpa dolores, quaerat, libero reprehenderit quia. Aspernatur earum, numquam accusamus ipsa ratione alias
-          impedit pariatur.
-        </p>
+        <h3>{welcomeMessage?.title}</h3>
+        <p>{welcomeMessage?.message}</p>
         <Button type="button" label="Login / Signup" icon={<AiOutlineLogin />} />
       </div>
       <div className="right-side">
