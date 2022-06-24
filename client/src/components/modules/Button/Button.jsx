@@ -1,10 +1,12 @@
-import { ButtonWrapper } from "./../../../styles/modules/ButtonWraper.js";
+import { ButtonWrapper } from "../../../styles/modules/ButtonWrapper.js";
 
-export const Button = ({ icon, label, type }) => {
+export const Button = ({ icon, label, type, onClickHandler }) => {
   return (
-    <ButtonWrapper type={type}>
-      <div className="icon-container">{icon}</div>
-      <div>{label}</div>
+    <ButtonWrapper onClick={onClickHandler} type={type}>
+      <div className="button-container">
+        {icon && <div className="icon-container">{icon}</div>}
+        <div>{label}</div>
+      </div>
     </ButtonWrapper>
   );
 };

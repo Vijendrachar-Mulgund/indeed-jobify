@@ -1,8 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 
+import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Home from "./pages/Home/Home";
+
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const App = () => {
   return (
@@ -12,7 +14,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/landing" element={<LandingPage />} />
-          <Route path="*" element={<div>404</div>} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </div>
