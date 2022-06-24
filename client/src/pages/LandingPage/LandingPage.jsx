@@ -13,7 +13,6 @@ const LandingPage = () => {
 
   useEffect(() => {
     const messageFromConfig = JSON.parse(getConfigValue("landingPage")?.asString());
-
     setWelcomeMessage(messageFromConfig);
   }, []);
 

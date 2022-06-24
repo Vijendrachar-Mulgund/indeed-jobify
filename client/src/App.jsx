@@ -1,7 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 
-import toast from "react-hot-toast";
-
 import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
 import LandingPage from "./pages/LandingPage/LandingPage";
