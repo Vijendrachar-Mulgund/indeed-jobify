@@ -1,11 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
 import Header from "./components/Header/Header";
+
+import Home from "./pages/Home/Home";
 import LandingPage from "./pages/LandingPage/LandingPage";
-
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
-
 import ToasterBar from "./components/modules/ToasterBar/ToasterBar";
 
 const App = () => {

@@ -1,20 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/modules/Button/Button";
-
+import { Button } from "antd";
+import { HomeOutlined } from "@ant-design/icons";
 import { PageNotFoundWrapper } from "../../styles/PageNotFound/PageNotFoundWrapper";
 
-import PageNotFoundImage from "./../../assets/Images/page_not_found.svg";
+import PageNotFoundImage from "./../../assets/Images/page-not-found.svg";
 
 const PageNotFound = () => {
   const navigate = useNavigate();
 
+  const goHome = () => {
+    navigate("/");
+  };
+
   return (
     <PageNotFoundWrapper>
       <div>
-        <img src={PageNotFoundImage} />
+        <img src={PageNotFoundImage} alt="page-not-found" />
         <p>This page is not availble.</p>
-
-        <Button onClickHandler={() => navigate("/")} label="Go Home" />
+        <Button onClick={goHome} icon={<HomeOutlined />} size="large">
+          Go home
+        </Button>
       </div>
     </PageNotFoundWrapper>
   );
