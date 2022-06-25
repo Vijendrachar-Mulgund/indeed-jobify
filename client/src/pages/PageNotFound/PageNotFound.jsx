@@ -17,7 +17,7 @@ const PageNotFound = () => {
       <div>
         <img src={PageNotFoundImage} alt="page-not-found" />
         <p>This page is not availble.</p>
-        <Button onClick={goHome} icon={<HomeOutlined />} size="large">
+        <Button onClick={goHome} icon={<HomeOutlined />}>
           Go home
         </Button>
       </div>

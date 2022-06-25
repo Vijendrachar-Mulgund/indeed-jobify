@@ -18,7 +18,8 @@ const HeaderWrapper = styled.header`
   box-shadow: 0 4px 6px -3px var(--primary-color);
 
   .logo-container img {
-    height: 1.5rem;
+    height: 1.25rem;
+    vertical-align: middle;
   }
 `;
 
