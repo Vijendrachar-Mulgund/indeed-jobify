@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 
 import Home from "./pages/Home/Home";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Login from "./pages/Login/Login";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/landing" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>

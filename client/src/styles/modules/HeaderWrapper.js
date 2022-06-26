@@ -13,9 +13,7 @@ const HeaderWrapper = styled.header`
     align-items: center;
   }
 
-  -webkit-box-shadow: 0 4px 6px -3px var(--primary-color);
-  -moz-box-shadow: 0 4px 6px -3px var(--primary-color);
-  box-shadow: 0 4px 6px -3px var(--primary-color);
+  box-shadow: var(--box-shadow);
 
   .logo-container img {
     height: 1.25rem;

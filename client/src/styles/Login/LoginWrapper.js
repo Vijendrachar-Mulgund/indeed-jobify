@@ -1,3 +1,36 @@
 import styled from "styled-components";
 
-const LoginWrapper = styled.div``;
+const LoginWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: calc(100vh - var(--header-height));
+
+  .login {
+    &-logo {
+      height: 2rem;
+      margin: 1rem 0;
+    }
+
+    &-text {
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+
+    &-logo-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    &-box-container {
+      width: 25vw;
+      border-radius: 10px;
+      padding: 2rem;
+
+      box-shadow: var(--box-shadow);
+    }
+  }
+`;
+
+export { LoginWrapper };
