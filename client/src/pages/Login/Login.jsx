@@ -52,17 +52,23 @@ const Login = () => {
           </Form.Item>
         </Form>
 
-        <Divider>Or</Divider>
-
-        <Button icon={<GoogleOutlined />} block>
-          Google
-        </Button>
+        <p className="signup-message">
+          Don't have an account?<Button type="link">Sign up</Button>
+        </p>
 
         <Divider>Or</Divider>
 
-        <Button icon={<FacebookFilled />} block>
-          Facebook
-        </Button>
+        <div className="login-social">
+          <Button icon={<GoogleOutlined />} block>
+            Google
+          </Button>
+        </div>
+
+        <div className="login-social">
+          <Button icon={<FacebookFilled />} block>
+            Facebook
+          </Button>
+        </div>
       </div>
     </LoginWrapper>
   );
