@@ -3,9 +3,25 @@ import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
 import { Button, Form, Input, DatePicker } from "antd";
 
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import { useState } from "react";
 
 const Login = () => {
+  const [userName, setUserName] = useState({ name: "", isValid: true, message: "" });
+  const [userEmail, setUserEmail] = useState({ email: "", isValid: true, message: "" });
+
   const onDateChange = () => {};
+
+  const handleUsernameInput = (event) => {
+    if (event?.target?.value?.length >= 5) {
+      setUserName({ name: event?.target?.value, isValid: true, message: "" });
+    } else {
+      setUserName({
+        name: event?.target?.value,
+        isValid: false,
+        message: "The user name should be atleast 5 charaters",
+      });
+    }
+  };
 
   return (
     <SignupWrapper>
@@ -21,6 +37,8 @@ const Login = () => {
           <Form.Item
             label="Name"
             name="username"
+            validateStatus={!userName?.isValid ? "warning" : "success"}
+            help={userName.message}
             rules={[
               {
                 required: true,
@@ -28,13 +46,15 @@ const Login = () => {
               },
             ]}
           >
-            <Input />
+            <Input onChange={handleUsernameInput} />
           </Form.Item>
 
           {/* For Email address */}
           <Form.Item
             label="Email"
             name="email"
+            validateStatus={!userEmail?.isValid ? "warning" : "success"}
+            help={userEmail?.message}
             rules={[
               {
                 required: true,
