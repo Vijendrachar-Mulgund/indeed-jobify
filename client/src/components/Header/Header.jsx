@@ -1,4 +1,4 @@
-import { HeaderWrapper } from "../../styles/modules/HeaderWrapper";
+import { HeaderWrapper } from "../../styles/modules/HeaderWrapper/HeaderWrapper";
 
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 
