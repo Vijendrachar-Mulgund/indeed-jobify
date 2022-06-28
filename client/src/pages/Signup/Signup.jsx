@@ -1,27 +1,26 @@
 import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
-
 import { Button, Form, Input, DatePicker } from "antd";
-
-import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 import { useState } from "react";
+import { validateEmail } from "./../../utils/validationUtil";
+import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 
 const Login = () => {
-  const [userName, setUserName] = useState({ name: "", isValid: true, message: "" });
-  const [userEmail, setUserEmail] = useState({ email: "", isValid: true, message: "" });
-
-  const onDateChange = () => {};
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const handleUsernameInput = (event) => {
-    if (event?.target?.value?.length >= 5) {
-      setUserName({ name: event?.target?.value, isValid: true, message: "" });
+    setUserName(event.target.value);
+  };
+
+  const handleEmailInput = (event) => {
+    if (validateEmail(event?.target?.value)) {
+      setUserEmail({ email: event?.target?.value, isValid: true, message: "" });
     } else {
-      setUserName({
-        name: event?.target?.value,
-        isValid: false,
-        message: "The user name should be atleast 5 charaters",
-      });
+      setUserEmail({ email: event?.target?.value, isValid: false, message: "Please enter a valid E-mail address!" });
     }
   };
+
+  const handleDobInput = () => {};
 
   return (
     <SignupWrapper>
@@ -37,14 +36,22 @@ const Login = () => {
           <Form.Item
             label="Name"
             name="username"
-            validateStatus={!userName?.isValid ? "warning" : "success"}
-            help={userName.message}
             rules={[
               {
                 required: true,
                 message: "Please enter your name!",
               },
+              {
+                validator: async ({}, name) => {
+                  if (name && name?.length < 5) {
+                    return Promise.reject("At least 2 passengers");
+                  }
+                  return Promise.resolve();
+                },
+                message: "Minimum 10 Didits!",
+              },
             ]}
+            hasFeedback
           >
             <Input onChange={handleUsernameInput} />
           </Form.Item>
@@ -53,8 +60,6 @@ const Login = () => {
           <Form.Item
             label="Email"
             name="email"
-            validateStatus={!userEmail?.isValid ? "warning" : "success"}
-            help={userEmail?.message}
             rules={[
               {
                 required: true,
@@ -62,7 +67,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input />
+            <Input onChange={handleEmailInput} />
           </Form.Item>
 
           {/* For Date of birth */}
@@ -77,7 +82,7 @@ const Login = () => {
             ]}
           >
             <DatePicker
-              onChange={onDateChange}
+              onChange={handleDobInput}
               style={{
                 width: "100%",
               }}

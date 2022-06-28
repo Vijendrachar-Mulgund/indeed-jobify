@@ -7,8 +7,11 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import { useState } from "react";
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div className="App">
       <div className="App-container">
@@ -25,9 +28,11 @@ const App = () => {
         </div>
       </div>
 
-      {/* <div className="App-loader">
-        <PageLoader />
-      </div> */}
+      {isLoading && (
+        <div className="App-loader">
+          <PageLoader />
+        </div>
+      )}
     </div>
   );
 };
