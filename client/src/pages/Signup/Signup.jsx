@@ -7,20 +7,34 @@ import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [dob, setDob] = useState(null);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleUsernameInput = (event) => {
-    setUserName(event.target.value);
-  };
+  const handleInput = (fieldName, event) => {
+    const value = event.target.value;
 
-  const handleEmailInput = (event) => {
-    if (validateEmail(event?.target?.value)) {
-      setUserEmail({ email: event?.target?.value, isValid: true, message: "" });
-    } else {
-      setUserEmail({ email: event?.target?.value, isValid: false, message: "Please enter a valid E-mail address!" });
+    switch (fieldName) {
+      case "username":
+        setUserName(value);
+      case "email":
+        setUserEmail(value);
+      case "dob":
+        setDob(value);
+      case "password":
+        setPassword(value);
+      case "confirmPassword":
+        setConfirmPassword(value);
     }
   };
 
-  const handleDobInput = () => {};
+  const emailValidation = async ({}, value) => {
+    if (validateEmail(value)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject("The entered is not valid!");
+    }
+  };
 
   return (
     <SignupWrapper>
@@ -41,19 +55,9 @@ const Login = () => {
                 required: true,
                 message: "Please enter your name!",
               },
-              {
-                validator: async ({}, name) => {
-                  if (name && name?.length < 5) {
-                    return Promise.reject("At least 2 passengers");
-                  }
-                  return Promise.resolve();
-                },
-                message: "Minimum 10 Didits!",
-              },
             ]}
-            hasFeedback
           >
-            <Input onChange={handleUsernameInput} />
+            <Input onChange={(e) => handleInput("username", e)} />
           </Form.Item>
 
           {/* For Email address */}
@@ -65,9 +69,14 @@ const Login = () => {
                 required: true,
                 message: "Please input your Email!",
               },
+              {
+                validator: emailValidation,
+                message: "Please enter a valid Email",
+              },
             ]}
+            hasFeedback
           >
-            <Input onChange={handleEmailInput} />
+            <Input onChange={(e) => handleInput("email", e)} />
           </Form.Item>
 
           {/* For Date of birth */}
@@ -82,7 +91,7 @@ const Login = () => {
             ]}
           >
             <DatePicker
-              onChange={handleDobInput}
+              onChange={(e) => handleInput("dob", e)}
               style={{
                 width: "100%",
               }}
@@ -100,7 +109,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password onChange={(e) => handleInput("password", e)} />
           </Form.Item>
 
           {/* For password confirmation */}
@@ -114,7 +123,7 @@ const Login = () => {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password onChange={(e) => handleInput("confirmPassword", e)} />
           </Form.Item>
 
           {/* Submit button */}
