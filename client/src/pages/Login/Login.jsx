@@ -1,11 +1,13 @@
 import { LoginWrapper } from "./../../styles/Login/LoginWrapper";
-
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Divider } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
-
+import { emailValidation, validatePassword } from "./../../utils/validationUtil";
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 
 const Login = () => {
+  const navigator = useNavigate();
+
   return (
     <LoginWrapper>
       <div className="login-box-container">
@@ -25,7 +27,11 @@ const Login = () => {
                 required: true,
                 message: "Please input your Email!",
               },
+              {
+                validator: emailValidation,
+              },
             ]}
+            hasFeedback
           >
             <Input />
           </Form.Item>
@@ -39,7 +45,11 @@ const Login = () => {
                 required: true,
                 message: "Please input your password!",
               },
+              {
+                validator: validatePassword,
+              },
             ]}
+            hasFeedback
           >
             <Input.Password />
           </Form.Item>
@@ -52,7 +62,7 @@ const Login = () => {
           </Form.Item>
         </Form>
 
-        <p className="signup-message">
+        <p className="signup-message" onClick={() => navigator("/signup")}>
           Don't have an account?<Button type="link">Sign up</Button>
         </p>
 

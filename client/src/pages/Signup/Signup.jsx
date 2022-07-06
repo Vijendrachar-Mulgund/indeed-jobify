@@ -1,7 +1,8 @@
 import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
 import { Button, Form, Input, DatePicker } from "antd";
 import { useState } from "react";
-import { validateEmail } from "./../../utils/validationUtil";
+import { useNavigate } from "react-router-dom";
+import { emailValidation, validatePassword } from "./../../utils/validationUtil";
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 
 const Login = () => {
@@ -10,6 +11,8 @@ const Login = () => {
   const [dob, setDob] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigator = useNavigate();
 
   const handleInput = (fieldName, event) => {
     const value = event.target.value;
@@ -28,11 +31,11 @@ const Login = () => {
     }
   };
 
-  const emailValidation = async ({}, value) => {
-    if (validateEmail(value)) {
+  const validateConfimPassword = async ({}, value) => {
+    if (value?.length && value === password) {
       return Promise.resolve();
     } else {
-      return Promise.reject("The entered is not valid!");
+      return Promise.reject();
     }
   };
 
@@ -71,7 +74,6 @@ const Login = () => {
               },
               {
                 validator: emailValidation,
-                message: "Please enter a valid Email",
               },
             ]}
             hasFeedback
@@ -107,7 +109,11 @@ const Login = () => {
                 required: true,
                 message: "Please input your password!",
               },
+              {
+                validator: validatePassword,
+              },
             ]}
+            hasFeedback
           >
             <Input.Password onChange={(e) => handleInput("password", e)} />
           </Form.Item>
@@ -121,7 +127,11 @@ const Login = () => {
                 required: true,
                 message: "Please re-type your password!",
               },
+              {
+                validator: validateConfimPassword,
+              },
             ]}
+            hasFeedback
           >
             <Input.Password onChange={(e) => handleInput("confirmPassword", e)} />
           </Form.Item>
@@ -134,7 +144,7 @@ const Login = () => {
           </Form.Item>
         </Form>
 
-        <p className="signup-message">
+        <p className="signup-message" onClick={() => navigator("/login")}>
           Already have an account?<Button type="link">Login</Button>
         </p>
       </div>
