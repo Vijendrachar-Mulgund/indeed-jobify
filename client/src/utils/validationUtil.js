@@ -11,7 +11,7 @@ export const emailValidation = async ({}, value) => {
   if (validateEmail(value)) {
     return Promise.resolve();
   } else {
-    return Promise.reject("The entered is not valid!");
+    return Promise.reject();
   }
 };
 
