@@ -8,7 +8,7 @@ import "normalize.css";
 import "./index.scss";
 import App from "./App";
 import "antd/dist/antd.min.css";
-import store from "./redux/store";
+import { store } from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
