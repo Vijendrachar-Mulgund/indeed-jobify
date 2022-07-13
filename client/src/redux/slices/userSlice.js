@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  user: {},
-};
+const initialState = {};
 
-const setUserAction = () => {};
+const setUserAction = (state, action) => {
+  const userData = action.payload;
+  return { ...state, ...userData };
+};
 const getUserAction = () => {};
 
 export const userSlice = createSlice({

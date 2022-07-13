@@ -20,18 +20,29 @@ const Login = () => {
     switch (fieldName) {
       case "username":
         setUserName(value);
+        break;
+
       case "email":
         setUserEmail(value);
+        break;
+
       case "dob":
         setDob(value);
+        break;
+
       case "password":
         setPassword(value);
+        break;
+
       case "confirmPassword":
         setConfirmPassword(value);
+        break;
+      default:
+        break;
     }
   };
 
-  const validateConfimPassword = async ({}, value) => {
+  const validateConfimPassword = async (_, value) => {
     if (value?.length && value === password) {
       return Promise.resolve();
     } else {

@@ -7,7 +7,7 @@ export const validateEmail = (email) => {
 };
 
 // Form validation for Sign up and Logn forms (only valid for ant-design forms)
-export const emailValidation = async ({}, value) => {
+export const emailValidation = async (_, value) => {
   if (validateEmail(value)) {
     return Promise.resolve();
   } else {
@@ -15,7 +15,7 @@ export const emailValidation = async ({}, value) => {
   }
 };
 
-export const validatePassword = async ({}, value) => {
+export const validatePassword = async (_, value) => {
   if (value?.length >= 8) {
     return Promise.resolve();
   } else {
