@@ -1,0 +1,19 @@
+{
+  "name": "indeed-jobify",
+  "version": "1.0.0",
+  "description": "Server for our Indeed-Jobify frontend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "vijendrachar",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
