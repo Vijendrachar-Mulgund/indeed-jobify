@@ -6,7 +6,9 @@ const app = express();
 // Imports
 import dotenv from "dotenv";
 
-// Middleware imports
+import { connectToMongoDB } from "./db/connectDB.js";
+
+// Middleware Imports
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
 import { notFoundMiddleware } from "./middlewares/notFoundMiddleware.js";
 
@@ -26,7 +28,17 @@ app.use(errorHandlerMiddleware);
 // Route not found
 app.use(notFoundMiddleware);
 
+// Connet to DB and start the server
+const serverInit = async () => {
+  try {
+    await connectToMongoDB();
+    app.listen(port, () => {
+      console.log(`The server has been started on port ${port}`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to Database and Start the server 🚫", error);
+  }
+};
+
 // Server start
-app.listen(port, () => {
-  console.log(`The server has been started on port http://localhost:${port}`);
-});
+serverInit();
