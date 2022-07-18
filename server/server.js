@@ -8,6 +8,9 @@ import dotenv from "dotenv";
 
 import { connectToMongoDB } from "./db/connectDB.js";
 
+// Route handler Imports
+import authRoutes from "./routes/authRoutes.js";
+
 // Middleware Imports
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
 import { notFoundMiddleware } from "./middlewares/notFoundMiddleware.js";
@@ -17,9 +20,8 @@ dotenv.config();
 
 const port = process.env.PORT || 8000;
 
-app.get("/", (request, response) => {
-  throw new Error();
-});
+// The Route handlers
+app.use("/api/v1/auth", authRoutes);
 
 /* Apply Middlewares */
 // Error handler
