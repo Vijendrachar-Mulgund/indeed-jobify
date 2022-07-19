@@ -3,3 +3,7 @@ export const signUp = (request, response, next) => {
     message: "Signup response",
   });
 };
+
+export const login = (request, response, next) => {};
+
+export const autoAuthenticate = (request, response, next) => {};
