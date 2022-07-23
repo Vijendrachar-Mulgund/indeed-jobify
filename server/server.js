@@ -18,6 +18,9 @@ import { notFoundMiddleware } from "./middlewares/notFoundMiddleware.js";
 // Configure the Environment variables
 dotenv.config();
 
+// JSON Body parser
+app.use(express.json());
+
 const port = process.env.PORT || 8000;
 
 // The Route handlers
@@ -34,6 +37,7 @@ app.use(notFoundMiddleware);
 const serverInit = async () => {
   try {
     await connectToMongoDB();
+    console.log("Connection to Database successful");
     app.listen(port, () => {
       console.log(`The server has been started on port ${port}`);
     });
