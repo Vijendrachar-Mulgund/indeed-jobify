@@ -37,9 +37,9 @@ app.use(notFoundMiddleware);
 const serverInit = async () => {
   try {
     await connectToMongoDB();
-    console.log("Connection to Database successful");
+    console.info("Connection to Database successful");
     app.listen(port, () => {
-      console.log(`The server has been started on port ${port}`);
+      console.info(`The server has been started on port ${port}`);
     });
   } catch (error) {
     console.error("Unable to connect to Database and Start the server 🚫", error);

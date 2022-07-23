@@ -16,10 +16,6 @@ const LandingPage = () => {
     setWelcomeMessage(messageFromConfig);
   }, []);
 
-  useEffect(() => {
-    console.log("This is a welcome message - ", welcomeMessage);
-  }, [welcomeMessage]);
-
   const handleLoginRegisterClick = () => {
     navigate("/login");
   };

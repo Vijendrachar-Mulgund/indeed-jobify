@@ -1,14 +1,21 @@
 import User from "./../models/userModel.js";
 
-import { newError } from "../utils/error.js";
+import { newError, errorHandler } from "../utils/error.js";
 import httpStatus from "../enums/httpStatusCodes.js";
 
 export const signUp = async (request, response, next) => {
   try {
-    const user = await User.create(request.body);
+    const { name, email, dateOfBirth, password } = request.body;
+
+    const user = await User.create({
+      name,
+      email,
+      dateOfBirth: new Date(dateOfBirth),
+      password,
+    });
     response.status(httpStatus.created).json({ user });
   } catch (error) {
-    next(newError(httpStatus.badRequest, error.message));
+    errorHandler(httpStatus.badRequest, error, next);
   }
 };
 
