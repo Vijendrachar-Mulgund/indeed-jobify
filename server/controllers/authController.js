@@ -1,6 +1,6 @@
 import User from "./../models/userModel.js";
 
-import { newError, errorHandler } from "../utils/error.js";
+import { errorHandler } from "../utils/error.js";
 import httpStatus from "../enums/httpStatusCodes.js";
 
 export const signUp = async (request, response, next) => {
