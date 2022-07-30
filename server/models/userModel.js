@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -23,10 +24,23 @@ const userSchema = new mongoose.Schema({
   location: {
     type: String,
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   createdAt: {
     type: Date,
     default: new Date(Date.now()),
   },
+});
+
+userSchema.pre("save", async function () {
+  try {
+    const salt = await bcrypt.genSalt(parseInt(process.env.PASSWORD_SALT_VALUE));
+    this.password = await bcrypt.hash(this.password, salt);
+  } catch (error) {
+    console.error("Error in password Hashing", error);
+  }
 });
 
 export default mongoose.model("User", userSchema);
