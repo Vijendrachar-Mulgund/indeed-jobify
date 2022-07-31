@@ -5,6 +5,8 @@ export const newError = (statusCode, error) => {
 };
 
 export const errorHandler = (statusCode, error, next) => {
+  console.error("Error -> ", error);
+
   const err = {
     statusCode,
     message: "",

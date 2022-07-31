@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import JWT from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -16,6 +17,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a password"],
     minlength: 8,
+    select: false,
   },
   dateOfBirth: {
     type: Date,
@@ -42,5 +44,15 @@ userSchema.pre("save", async function () {
     console.error("Error in password Hashing", error);
   }
 });
+
+userSchema.methods.createUserToken = function () {
+  try {
+    return JWT.sign({ id: this._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_LIFETIME,
+    });
+  } catch (error) {
+    console.error("Error in JWT signing ", error);
+  }
+};
 
 export default mongoose.model("User", userSchema);
