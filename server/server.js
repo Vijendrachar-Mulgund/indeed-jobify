@@ -8,7 +8,7 @@ const app = express();
 
 // Imports
 import dotenv from "dotenv";
-
+import cors from "cors";
 import { connectToMongoDB } from "./db/connectDB.js";
 
 // Route handler Imports
@@ -18,8 +18,13 @@ import authRoutes from "./routes/authRoutes.js";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
 import { notFoundMiddleware } from "./middlewares/notFoundMiddleware.js";
 
+import { corsOptions } from "./utils/corsConfig.js";
+
 // Configure the Environment variables
 dotenv.config();
+
+// CORS handling
+app.use(cors(corsOptions));
 
 // JSON Body parser
 app.use(express.json());
