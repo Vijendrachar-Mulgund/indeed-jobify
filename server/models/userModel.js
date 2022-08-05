@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  devices: {
+    type: Array,
+  },
   createdAt: {
     type: Date,
     default: new Date(Date.now()),

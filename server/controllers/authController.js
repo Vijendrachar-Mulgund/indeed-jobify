@@ -5,13 +5,14 @@ import httpStatus from "../enums/httpStatusCodes.js";
 
 export const signUp = async (request, response, next) => {
   try {
-    const { name, email, dateOfBirth, password } = request.body;
+    const { name, email, dateOfBirth, password, device } = request.body;
 
     const user = await UserModel.create({
       name,
       email,
       dateOfBirth: new Date(dateOfBirth),
       password,
+      devices: [device],
     });
 
     // Generate the JWT token when the Dats is written successfully to the Database
