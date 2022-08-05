@@ -1,7 +1,7 @@
 import UserModel from "./../models/userModel.js";
+import httpStatus from "../enums/httpStatusCodes.js";
 
 import { errorHandler } from "../utils/error.js";
-import httpStatus from "../enums/httpStatusCodes.js";
 
 export const signUp = async (request, response, next) => {
   try {
@@ -32,10 +32,52 @@ export const signUp = async (request, response, next) => {
   }
 };
 
-export const login = (request, response, next) => {
-  response.status(httpStatus.success).json({
-    message: "Login response",
-  });
+export const login = async (request, response, next) => {
+  try {
+    const { email, password, device } = request.body;
+
+    // Get the user record from the DB. With password
+    const user = await UserModel.findOne({ email }).select("+password");
+
+    // Throw the error if the User does not exist
+    if (!user) {
+      throw new Error("We could not find your records, Please Signup!");
+    }
+
+    // Check if the user account is active
+    if (!user?.isActive) {
+      throw new Error("This account is not Active, Please Activate!");
+    }
+
+    // Validate the Password
+    const checkPassword = await user.validateUserPassword(password, user.password);
+
+    if (!checkPassword) {
+      throw new Error("Incorrect password. Please try again!");
+    }
+
+    // Check for Device limitation
+    const checkDevice = await user.validateDevice(device);
+
+    if (checkDevice && typeof checkDevice === "string") {
+      throw new Error(checkDevice);
+    }
+
+    // If all the validations are cleared, Then we can create the token and send response
+    const token = await user.createUserToken();
+
+    // Create a dublicate object and remove the PASSWORD before sending the response
+    const userData = { ...user?._doc };
+    delete userData["password"];
+
+    response.status(httpStatus.success).json({
+      status: "success",
+      user: userData,
+      token,
+    });
+  } catch (error) {
+    errorHandler(httpStatus.badRequest, error, next);
+  }
 };
 
 export const autoAuthenticate = (request, response, next) => {

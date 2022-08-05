@@ -9,7 +9,7 @@ export const errorHandler = (statusCode, error, next) => {
 
   const err = {
     statusCode,
-    message: "",
+    message: error?.message || "",
   };
 
   // Check for validation error and setup the message
