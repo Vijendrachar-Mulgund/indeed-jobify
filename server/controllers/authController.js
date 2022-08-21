@@ -1,6 +1,8 @@
 import UserModel from "./../models/userModel.js";
 import httpStatus from "../enums/httpStatusCodes.js";
 
+import { validateDevice } from "./../utils/deviceManagement.js";
+
 import { errorHandler } from "../utils/error.js";
 
 export const signUp = async (request, response, next) => {
@@ -64,8 +66,13 @@ export const login = async (request, response, next) => {
       throw new Error("Incorrect password. Please try again!");
     }
 
+    // check for device payload
+    if (!device) {
+      throw new Error("Please add your device details!");
+    }
+
     // Check for Device limitation
-    const checkDevice = await user.validateDevice(device);
+    const checkDevice = await validateDevice(device, user);
 
     if (checkDevice && typeof checkDevice === "string") {
       throw new Error(checkDevice);
@@ -81,8 +88,8 @@ export const login = async (request, response, next) => {
     // Create and send the JWT via a cookie
     response.cookie("jwt", token, {
       expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
-      // httpOnly: true,
-      // secure: request.secure || request.headers["x-forwarded-proto"] === "https",
+      httpOnly: true,
+      secure: request.secure || request.headers["x-forwarded-proto"] === "https",
     });
 
     // Send the response for user object

@@ -14,7 +14,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
 
-  const [loginData, setLoginData] = useState({});
+  const [loginData, setLoginData] = useState({ device: JSON.parse(localStorage.getItem("deviceInfo")) });
 
   const handleLoginSubmit = () => {
     dispatch(userLogin(loginData));

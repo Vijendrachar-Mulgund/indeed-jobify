@@ -73,31 +73,4 @@ userSchema.methods.validateUserPassword = async function (candiatePassword, user
   }
 };
 
-userSchema.methods.validateDevice = async function (userDevice) {
-  try {
-    // Check if device already exists
-    const existingDevice = this.devices.find((device) => {
-      return device.deviceId === userDevice.deviceId;
-    });
-
-    if (existingDevice) {
-      return true;
-    }
-
-    // If not check if the limit has been reached and write the new device to the DB
-    if (this.devices.length >= constants.deviceLimit) {
-      return "Device Limit reached";
-    }
-
-    // Create an array with existing and the new device
-    const newDevices = [...this.devices, userDevice];
-
-    // Store the new devices list in DB
-    this.devices = newDevices;
-    return true;
-  } catch (error) {
-    console.error("Error in validating Device ", error);
-  }
-};
-
 export default mongoose.model("User", userSchema);
