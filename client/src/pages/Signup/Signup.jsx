@@ -1,53 +1,66 @@
-import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
-import { Button, Form, Input, DatePicker } from "antd";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { emailValidation, validatePassword } from "./../../utils/validationUtil";
+
+import { Button, Form, Input, DatePicker } from "antd";
+import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
+import { emailValidation } from "./../../utils/validationUtil";
+
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import { userSignUp } from "../../redux/slices/userSlice";
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [dob, setDob] = useState(null);
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [signUpData, setSignUpData] = useState({
+    device: JSON.parse(localStorage.getItem("deviceInfo")),
+  });
 
   const navigator = useNavigate();
 
-  const handleInput = (fieldName, event) => {
-    const value = event.target.value;
+  const dispatch = useDispatch();
 
-    switch (fieldName) {
+  const handleInput = (type, event) => {
+    switch (type) {
       case "username":
-        setUserName(value);
+        setSignUpData((prevState) => {
+          return { ...prevState, name: event.target.value };
+        });
         break;
 
       case "email":
-        setUserEmail(value);
-        break;
-
-      case "dob":
-        setDob(value);
+        setSignUpData((prevState) => {
+          return { ...prevState, email: event.target.value };
+        });
         break;
 
       case "password":
-        setPassword(value);
+        setSignUpData((prevState) => {
+          return { ...prevState, password: event.target.value };
+        });
         break;
 
       case "confirmPassword":
-        setConfirmPassword(value);
+        setSignUpData((prevState) => {
+          return { ...prevState, confirmPassword: event.target.value };
+        });
         break;
+
       default:
+        setSignUpData((prevState) => {
+          return { ...prevState };
+        });
         break;
     }
   };
 
-  const validateConfimPassword = async (_, value) => {
-    if (value?.length && value === password) {
-      return Promise.resolve();
-    } else {
-      return Promise.reject();
-    }
+  const handleDateOfBirth = (date, dateString) => {
+    setSignUpData((prevData) => {
+      return { ...prevData, dateOfBirth: dateString };
+    });
+  };
+
+  const handleSignUpSubmit = () => {
+    console.log("The final Payload -> ", signUpData);
+    dispatch(userSignUp(signUpData));
   };
 
   return (
@@ -59,7 +72,7 @@ const Login = () => {
 
         <p className="login-text">Create a new account!</p>
 
-        <Form name="basic" layout="vertical">
+        <Form name="basic" layout="vertical" onFinish={handleSignUpSubmit}>
           {/* Username */}
           <Form.Item
             label="Name"
@@ -104,7 +117,7 @@ const Login = () => {
             ]}
           >
             <DatePicker
-              onChange={(e) => handleInput("dob", e)}
+              onChange={handleDateOfBirth}
               style={{
                 width: "100%",
               }}
@@ -120,9 +133,6 @@ const Login = () => {
                 required: true,
                 message: "Please input your password!",
               },
-              {
-                validator: validatePassword,
-              },
             ]}
             hasFeedback
           >
@@ -133,14 +143,21 @@ const Login = () => {
           <Form.Item
             label="Password Confirm"
             name="password-confirm"
+            dependencies={["password"]}
             rules={[
               {
                 required: true,
                 message: "Please re-type your password!",
               },
-              {
-                validator: validateConfimPassword,
-              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (value && getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  } else {
+                    return Promise.reject("The passwords do not match");
+                  }
+                },
+              }),
             ]}
             hasFeedback
           >

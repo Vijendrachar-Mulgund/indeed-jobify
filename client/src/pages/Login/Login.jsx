@@ -6,8 +6,9 @@ import { Button, Form, Input, Divider } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { emailValidation, validatePassword } from "./../../utils/validationUtil";
 
-import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 import { userLogin } from "../../redux/slices/userSlice";
+
+import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 
 const Login = () => {
   const navigator = useNavigate();
@@ -19,6 +20,8 @@ const Login = () => {
   const handleLoginSubmit = () => {
     dispatch(userLogin(loginData));
   };
+
+  const user = useSelector((state) => state.user);
 
   const handleUserInput = (type, event) => {
     switch (type) {
