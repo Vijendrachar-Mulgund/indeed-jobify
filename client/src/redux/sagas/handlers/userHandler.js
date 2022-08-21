@@ -1,10 +1,10 @@
 import { call, put } from "redux-saga/effects";
-import { requestGetUser } from "../requests/userRequests";
+import { loginUser } from "../requests/userRequests";
 import { setUser } from "../../slices/userSlice";
 
-export function* handleGetUser() {
+export function* handleUserLogin(params) {
   try {
-    const response = yield call(requestGetUser);
+    const response = yield call(loginUser(params.payload));
     const { data } = response;
     yield put(setUser(data));
   } catch (error) {

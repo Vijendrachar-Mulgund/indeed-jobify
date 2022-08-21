@@ -22,6 +22,14 @@ export const signUp = async (request, response, next) => {
     const userData = { ...user?._doc };
     delete userData["password"];
 
+    // Create and send the JWT via a cookie
+    response.cookie("jwt", token, {
+      expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: request.secure || request.headers["x-forwarded-proto"] === "https",
+    });
+
+    // Send the response back to the client
     response.status(httpStatus.created).json({
       status: "success",
       user: userData,
@@ -70,6 +78,14 @@ export const login = async (request, response, next) => {
     const userData = { ...user?._doc };
     delete userData["password"];
 
+    // Create and send the JWT via a cookie
+    response.cookie("jwt", token, {
+      expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+      // httpOnly: true,
+      // secure: request.secure || request.headers["x-forwarded-proto"] === "https",
+    });
+
+    // Send the response for user object
     response.status(httpStatus.success).json({
       status: "success",
       user: userData,

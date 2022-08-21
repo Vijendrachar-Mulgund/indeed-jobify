@@ -1,12 +1,45 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginWrapper } from "./../../styles/Login/LoginWrapper";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Divider } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { emailValidation, validatePassword } from "./../../utils/validationUtil";
+
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import { userLogin } from "../../redux/slices/userSlice";
 
 const Login = () => {
   const navigator = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const [loginData, setLoginData] = useState({});
+
+  const handleLoginSubmit = () => {
+    dispatch(userLogin(loginData));
+  };
+
+  const handleUserInput = (type, event) => {
+    switch (type) {
+      case "email":
+        setLoginData((prevState) => {
+          return { ...prevState, email: event.target.value };
+        });
+        break;
+
+      case "password":
+        setLoginData((prevState) => {
+          return { ...prevState, password: event.target.value };
+        });
+        break;
+
+      default:
+        setLoginData((prevState) => {
+          return { ...prevState };
+        });
+    }
+  };
 
   return (
     <LoginWrapper>
@@ -17,7 +50,7 @@ const Login = () => {
 
         <p className="login-text">Please enter your credentials to login!</p>
 
-        <Form name="basic" layout="vertical">
+        <Form name="basic" layout="vertical" onFinish={handleLoginSubmit}>
           {/* For Email or Username */}
           <Form.Item
             label="Email or Username"
@@ -33,7 +66,7 @@ const Login = () => {
             ]}
             hasFeedback
           >
-            <Input />
+            <Input onChange={(e) => handleUserInput("email", e)} />
           </Form.Item>
 
           {/* For password */}
@@ -51,7 +84,7 @@ const Login = () => {
             ]}
             hasFeedback
           >
-            <Input.Password />
+            <Input.Password onChange={(e) => handleUserInput("password", e)} />
           </Form.Item>
 
           {/* Submit button */}

@@ -24,7 +24,7 @@ import { corsOptions } from "./utils/corsConfig.js";
 dotenv.config();
 
 // CORS handling
-app.use(cors());
+app.use(cors(corsOptions()));
 
 // JSON Body parser
 app.use(express.json());

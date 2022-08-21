@@ -1,8 +1,5 @@
-import axios from "axios";
+import axios from "./../../../axios";
 
-export function requestGetUser() {
-  return axios.request({
-    method: "get",
-    url: "https://jsonplaceholder.typicode.com/users/1",
-  });
+export function loginUser(payload) {
+  return axios.post("auth/login", payload);
 }

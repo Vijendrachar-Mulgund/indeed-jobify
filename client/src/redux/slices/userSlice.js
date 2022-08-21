@@ -6,17 +6,18 @@ const setUserAction = (state, action) => {
   const userData = action.payload;
   return { ...state, ...userData };
 };
-const getUserAction = () => {};
+
+const userLoginAction = (data) => {};
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setUser: setUserAction,
-    getUser: getUserAction,
+    userLogin: userLoginAction,
   },
 });
 
-export const { setUser, getUser } = userSlice.actions;
+export const { setUser, userLogin } = userSlice.actions;
 
 export default userSlice.reducer;
