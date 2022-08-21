@@ -7,7 +7,7 @@ const setUserAction = (state, action) => {
   return { ...state, ...userData };
 };
 
-const userLoginAction = (data) => {};
+const userLoginAction = () => {};
 
 export const userSlice = createSlice({
   name: "user",

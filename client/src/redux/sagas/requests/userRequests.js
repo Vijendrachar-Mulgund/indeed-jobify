@@ -1,5 +1,5 @@
 import axios from "./../../../axios";
 
-export function loginUser(payload) {
-  return axios.post("auth/login", payload);
+export function loginUser(context) {
+  return axios.post("auth/login", context.payload);
 }
