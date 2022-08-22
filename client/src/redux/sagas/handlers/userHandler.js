@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { loginUser, signUpUser } from "../requests/userRequests";
+import { loginUser, signUpUser, autoAuthenticate } from "../requests/userRequests";
 import { setUser } from "../../slices/userSlice";
 
 import { message } from "antd";
@@ -18,6 +18,17 @@ export function* handleUserLogin(params) {
 export function* handleUserSignUp(params) {
   try {
     const response = yield call(signUpUser, params);
+    const { data } = response;
+    yield put(setUser(data));
+  } catch (error) {
+    message.error(error?.response?.data?.message);
+    console.error("Sign up error", error);
+  }
+}
+
+export function* handleAutoAuthenticate() {
+  try {
+    const response = yield call(autoAuthenticate);
     const { data } = response;
     yield put(setUser(data));
   } catch (error) {

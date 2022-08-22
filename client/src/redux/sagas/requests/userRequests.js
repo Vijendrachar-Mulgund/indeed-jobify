@@ -7,3 +7,7 @@ export function loginUser(context) {
 export function signUpUser(context) {
   return axios.post("auth/signup", context.payload);
 }
+
+export function autoAuthenticate(context) {
+  return axios.get("auth/auto-authenticate");
+}

@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { userAutoAuth } from "./redux/slices/userSlice";
 
 import Header from "./components/Header/Header";
 import PageLoader from "./components/PageLoader/PageLoader";
@@ -11,6 +14,22 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const token = localStorage.getItem("auth-token");
+
+    if (token) {
+      dispatch(userAutoAuth());
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("The Logged in user -> ", user);
+  }, [user]);
 
   return (
     <div className="App">
