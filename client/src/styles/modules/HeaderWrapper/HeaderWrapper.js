@@ -21,4 +21,20 @@ const HeaderWrapper = styled.header`
   }
 `;
 
-export { HeaderWrapper };
+const UserPopover = styled.div`
+  text-align: center;
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    color: var(--secondary-color);
+  }
+`;
+
+const Divider = styled.hr`
+  border-top: 1px solid var(--magic-mint);
+`;
+
+export { HeaderWrapper, UserPopover, Divider };

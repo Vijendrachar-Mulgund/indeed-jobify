@@ -9,19 +9,25 @@ import { emailValidation, validatePassword } from "./../../utils/validationUtil"
 import { userLogin } from "../../redux/slices/userSlice";
 
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import { useEffect } from "react";
 
 const Login = () => {
-  const navigator = useNavigate();
+  const [loginData, setLoginData] = useState({ device: JSON.parse(localStorage.getItem("deviceInfo")) });
 
+  const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const [loginData, setLoginData] = useState({ device: JSON.parse(localStorage.getItem("deviceInfo")) });
+  const user = useSelector((state) => state.user);
 
   const handleLoginSubmit = () => {
     dispatch(userLogin(loginData));
   };
 
-  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    if (user?.user?._id) {
+      navigator("/");
+    }
+  }, [user]);
 
   const handleUserInput = (type, event) => {
     switch (type) {
