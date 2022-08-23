@@ -115,7 +115,7 @@ export const autoAuthenticate = async (request, response, next) => {
     const userId = validateToken(token);
 
     if (!userId) {
-      throw new Error("The token is not valid");
+      throw new Error("The token is not valid! Please login again!");
     }
 
     // Get the user from the data

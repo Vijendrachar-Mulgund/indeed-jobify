@@ -11,6 +11,6 @@ export const validateToken = (token) => {
     return id;
   } catch (error) {
     console.error("Error in validating token ", error);
-    return error;
+    return false;
   }
 };
