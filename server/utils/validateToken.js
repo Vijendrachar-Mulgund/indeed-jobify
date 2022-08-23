@@ -6,9 +6,9 @@ export const validateToken = (token) => {
       return false;
     }
 
-    const { id } = JWT.verify(token, process.env.JWT_SECRET);
+    const { id, deviceId } = JWT.verify(token, process.env.JWT_SECRET);
 
-    return id;
+    return { id, deviceId };
   } catch (error) {
     console.error("Error in validating token ", error);
     return false;

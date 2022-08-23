@@ -54,10 +54,10 @@ userSchema.pre("save", async function () {
 });
 
 // Generate the User token
-userSchema.methods.createUserToken = function () {
+userSchema.methods.createUserToken = function (deviceId) {
   try {
     // Sign the JWT with secret and User ID
-    return JWT.sign({ id: this._id }, process.env.JWT_SECRET, {
+    return JWT.sign({ id: this._id, deviceId }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_LIFETIME,
     });
   } catch (error) {
