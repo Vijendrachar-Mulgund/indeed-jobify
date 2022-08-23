@@ -5,6 +5,7 @@ const initialState = {};
 const setUserAction = (state, action) => {
   const userData = action.payload;
 
+  // Set the user token to localstorage
   localStorage.setItem("auth-token", userData.token);
 
   return { ...state, ...userData };
@@ -16,6 +17,8 @@ const userSignUpAction = () => {};
 
 const userAutoAuthAction = () => {};
 
+const userLogOutAction = () => {};
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -24,9 +27,10 @@ export const userSlice = createSlice({
     userLogin: userLoginAction,
     userSignUp: userSignUpAction,
     userAutoAuth: userAutoAuthAction,
+    userLogOut: userLogOutAction,
   },
 });
 
-export const { setUser, userLogin, userSignUp, userAutoAuth } = userSlice.actions;
+export const { setUser, userLogin, userSignUp, userAutoAuth, userLogOut } = userSlice.actions;
 
 export default userSlice.reducer;

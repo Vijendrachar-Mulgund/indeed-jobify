@@ -11,3 +11,7 @@ export function signUpUser(context) {
 export function autoAuthenticate() {
   return axios.get("auth/auto-authenticate");
 }
+
+export function logoutUser() {
+  return axios.post("auth/logout");
+}

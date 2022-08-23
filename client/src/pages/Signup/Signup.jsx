@@ -15,7 +15,6 @@ const Login = () => {
   });
 
   const navigator = useNavigate();
-
   const dispatch = useDispatch();
 
   const handleInput = (type, event) => {
@@ -59,7 +58,6 @@ const Login = () => {
   };
 
   const handleSignUpSubmit = () => {
-    console.log("The final Payload -> ", signUpData);
     dispatch(userSignUp(signUpData));
   };
 

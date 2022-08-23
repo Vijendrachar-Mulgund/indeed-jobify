@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { HeaderWrapper, UserPopover } from "../../styles/modules/HeaderWrapper/HeaderWrapper";
+import { useLogout } from "./../../utils/logout";
 import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 
 import { Button, Popover, Divider } from "antd";
@@ -14,6 +15,7 @@ const Header = () => {
 
   const navigator = useNavigate();
   const location = useLocation();
+  const logoutCb = useLogout();
 
   const user = useSelector((state) => state.user);
 
@@ -35,6 +37,10 @@ const Header = () => {
     });
   };
 
+  // const handleUserLogout = () => {
+  //   logout();
+  // };
+
   const userPopoverContent = () => {
     return (
       <UserPopover>
@@ -44,7 +50,7 @@ const Header = () => {
         <Button type="link" block>
           Account
         </Button>
-        <Button type="link" block>
+        <Button onClick={logoutCb} type="link" block>
           Logout
         </Button>
       </UserPopover>

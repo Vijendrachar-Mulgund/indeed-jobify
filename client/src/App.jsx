@@ -27,10 +27,6 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log("The Logged in user -> ", user);
-  }, [user]);
-
   return (
     <div className="App">
       <div className="App-container">
