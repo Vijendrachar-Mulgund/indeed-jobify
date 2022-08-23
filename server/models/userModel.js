@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Encrypt the password before saving it to the database
 userSchema.pre("save", async function () {
   try {
     // Salt the password
@@ -52,6 +53,7 @@ userSchema.pre("save", async function () {
   }
 });
 
+// Generate the User token
 userSchema.methods.createUserToken = function () {
   try {
     // Sign the JWT with secret and User ID
@@ -63,6 +65,7 @@ userSchema.methods.createUserToken = function () {
   }
 };
 
+// Validate the user password from the user for login
 userSchema.methods.validateUserPassword = async function (candiatePassword, userPassword) {
   try {
     // Return the value of the Hashed password comparison

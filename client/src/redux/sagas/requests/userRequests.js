@@ -8,6 +8,6 @@ export function signUpUser(context) {
   return axios.post("auth/signup", context.payload);
 }
 
-export function autoAuthenticate(context) {
+export function autoAuthenticate() {
   return axios.get("auth/auto-authenticate");
 }
