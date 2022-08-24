@@ -9,15 +9,13 @@ import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
 import { Button, Popover, Divider } from "antd";
 import { LoginOutlined, SmileOutlined } from "@ant-design/icons";
 
-const Header = () => {
+const Header = ({ user }) => {
   const [isUserLoggedin, setIsUserLoggedIn] = useState(false);
   const [isUserPopoverVisable, setIsUserPopoverVisible] = useState(false);
 
   const navigator = useNavigate();
   const location = useLocation();
   const logoutCb = useLogout();
-
-  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (user?.user?._id) {
@@ -36,10 +34,6 @@ const Header = () => {
       return !prevState;
     });
   };
-
-  // const handleUserLogout = () => {
-  //   logout();
-  // };
 
   const userPopoverContent = () => {
     return (

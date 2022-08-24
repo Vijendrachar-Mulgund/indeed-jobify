@@ -5,10 +5,15 @@ const initialState = {};
 const setUserAction = (state, action) => {
   const userData = action.payload;
 
-  // Set the user token to localstorage
-  localStorage.setItem("auth-token", userData.token);
-
-  return { ...state, ...userData };
+  if (userData) {
+    // Set the user token to localstorage
+    localStorage.setItem("auth-token", userData?.token);
+    console.log("Entered block 1 -> ", userData);
+    return { ...state, ...userData };
+  } else {
+    console.log("Entered block 2 -> ", initialState);
+    return initialState;
+  }
 };
 
 const userLoginAction = () => {};
@@ -28,9 +33,11 @@ export const userSlice = createSlice({
     userSignUp: userSignUpAction,
     userAutoAuth: userAutoAuthAction,
     userLogOut: userLogOutAction,
+
+    reset: () => initialState,
   },
 });
 
-export const { setUser, userLogin, userSignUp, userAutoAuth, userLogOut } = userSlice.actions;
+export const { setUser, userLogin, userSignUp, userAutoAuth, userLogOut, reset } = userSlice.actions;
 
 export default userSlice.reducer;

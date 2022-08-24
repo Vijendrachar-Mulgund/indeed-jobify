@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div className="App">
       <div className="App-container">
-        <Header />
+        <Header user={user} />
 
         <div>
           <Routes>
