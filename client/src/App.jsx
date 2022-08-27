@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import AuthGaurd from "./routerConfig/authGaurd";
+
 import { userAutoAuth } from "./redux/slices/userSlice";
 
 import Header from "./components/Header/Header";
@@ -34,7 +36,14 @@ const App = () => {
 
         <div>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <AuthGaurd user={user}>
+                  <Home />
+                </AuthGaurd>
+              }
+            />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
