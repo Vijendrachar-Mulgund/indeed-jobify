@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { userAutoAuth } from "./redux/slices/userSlice";
 
 import AuthGaurd from "./routerConfig/authGaurd";
 
-import { userAutoAuth } from "./redux/slices/userSlice";
-
 import Header from "./components/Header/Header";
 import PageLoader from "./components/PageLoader/PageLoader";
-import Home from "./pages/Home/Home";
+import Home from "./pages/Dashboard/Home/Home";
+import CreateNewJob from "./pages/Dashboard/CreateNewJob/CreateNewJob";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
@@ -27,23 +27,21 @@ const App = () => {
     if (token) {
       dispatch(userAutoAuth());
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
       <div className="App-container">
+        {/* Header */}
         <Header user={user} />
 
+        {/* The router Config */}
         <div>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <AuthGaurd user={user}>
-                  <Home />
-                </AuthGaurd>
-              }
-            />
+            {/* Dashboard Routes */}
+            <Route path="dashboard" element={<Home />}>
+              <Route path="create-new-job" element={<CreateNewJob />} />
+            </Route>
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
