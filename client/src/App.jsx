@@ -5,14 +5,20 @@ import { userAutoAuth } from "./redux/slices/userSlice";
 
 import AuthGaurd from "./routerConfig/authGaurd";
 
+// Page Imports
 import Header from "./components/Header/Header";
 import PageLoader from "./components/PageLoader/PageLoader";
-import Home from "./pages/JobSeekers/Home/Home";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
+// Jobseekers imports
+import Home from "./pages/JobSeekers/Home/Home";
+
+// Dashboard imports
+
+// Main App component
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
