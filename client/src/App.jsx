@@ -7,8 +7,7 @@ import AuthGaurd from "./routerConfig/authGaurd";
 
 import Header from "./components/Header/Header";
 import PageLoader from "./components/PageLoader/PageLoader";
-import Home from "./pages/Dashboard/Home/Home";
-import CreateNewJob from "./pages/Dashboard/CreateNewJob/CreateNewJob";
+import Home from "./pages/JobSeekers/Home/Home";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
@@ -38,13 +37,24 @@ const App = () => {
         {/* The router Config */}
         <div>
           <Routes>
-            {/* Dashboard Routes */}
-            <Route path="dashboard" element={<Home />}>
-              <Route path="create-new-job" element={<CreateNewJob />} />
-            </Route>
             <Route path="/landing" element={<LandingPage />} />
+            {/* The Auth routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+
+            {/* The Job seekers routes */}
+            <Route
+              path="/"
+              element={
+                <AuthGaurd user={user}>
+                  <Home />
+                </AuthGaurd>
+              }
+            />
+
+            {/* Dashboard Routes */}
+
+            {/* Wildcard routes */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
