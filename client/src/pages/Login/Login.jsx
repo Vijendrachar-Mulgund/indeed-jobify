@@ -8,7 +8,7 @@ import { emailValidation, validatePassword } from "./../../utils/validationUtil"
 
 import { userLogin } from "../../redux/slices/userSlice";
 
-import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
 import { useEffect } from "react";
 
 const Login = () => {

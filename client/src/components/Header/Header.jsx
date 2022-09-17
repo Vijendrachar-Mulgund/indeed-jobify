@@ -1,10 +1,10 @@
+import React from "react";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { HeaderWrapper, UserPopover } from "../../styles/modules/HeaderWrapper/HeaderWrapper";
 import { useLogout } from "./../../utils/logout";
-import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
 
 import { Button, Popover, Divider } from "antd";
 import { LoginOutlined, SmileOutlined } from "@ant-design/icons";

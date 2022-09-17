@@ -6,7 +6,7 @@ import { Button, Form, Input, DatePicker } from "antd";
 import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
 import { emailValidation } from "./../../utils/validationUtil";
 
-import IndeedLogo from "./../../assets/logo-icons/Indeed_logo_full.svg";
+import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
 import { userSignUp } from "../../redux/slices/userSlice";
 
 const Login = () => {
