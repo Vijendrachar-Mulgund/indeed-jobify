@@ -36,7 +36,6 @@ export const signUp = async (request, response, next) => {
     response.status(httpStatus.created).json({
       status: "success",
       user: userData,
-      token,
     });
   } catch (error) {
     errorHandler(httpStatus.badRequest, error, next);
@@ -97,7 +96,6 @@ export const login = async (request, response, next) => {
     response.status(httpStatus.success).json({
       status: "success",
       user: userData,
-      token,
     });
   } catch (error) {
     errorHandler(httpStatus.badRequest, error, next);
@@ -149,7 +147,7 @@ export const autoAuthenticate = async (request, response, next) => {
 
 export const logout = async (request, response, next) => {
   try {
-    response.status(httpStatus.success).json({
+    response.status(httpStatus.success).clearCookie("auth_token").json({
       status: "success",
     });
   } catch (error) {

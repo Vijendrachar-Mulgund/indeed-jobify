@@ -7,10 +7,6 @@ const instance = axios.create({
   timeout: REACT_APP_API_TIMEOUT,
 });
 
-const user = localStorage.getItem("user-id");
-
-if (user) {
-  instance.defaults.withCredentials = true;
-}
+instance.defaults.withCredentials = true;
 
 export default instance;

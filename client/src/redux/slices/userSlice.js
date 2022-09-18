@@ -32,8 +32,6 @@ export const userSlice = createSlice({
     userSignUp: userSignUpAction,
     userAutoAuth: userAutoAuthAction,
     userLogOut: userLogOutAction,
-
-    reset: () => initialState,
   },
 });
 

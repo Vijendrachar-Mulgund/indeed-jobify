@@ -11,15 +11,7 @@ export const useLogout = () => {
     // Make the API call to invalidate the token
     dispatch(userLogOut());
 
-    console.log("This func was called");
-
-    // Remove the token
-    localStorage.removeItem("user-id");
-
     // Navigate the user back to the login page
     navigator("/login");
-
-    // Reload the page
-    window.location.reload();
   };
 };

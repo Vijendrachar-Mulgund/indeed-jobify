@@ -56,8 +56,6 @@ const App = () => {
               }
             />
 
-            {/* Dashboard Routes */}
-
             {/* Wildcard routes */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
