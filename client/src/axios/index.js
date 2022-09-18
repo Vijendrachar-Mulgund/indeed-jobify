@@ -11,6 +11,7 @@ const token = localStorage.getItem("auth-token");
 
 if (token) {
   instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  instance.defaults.withCredentials = true;
 }
 
 export default instance;
