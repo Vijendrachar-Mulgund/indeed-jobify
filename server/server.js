@@ -47,9 +47,9 @@ let server;
 const serverInit = async () => {
   try {
     await connectToMongoDB();
-    console.info("Connection to Database successful");
+    console.info("Connection to Database successful 📚");
     server = app.listen(port, () => {
-      console.info(`The server has been started on port ${port}`);
+      console.info(`The server has been started on port ${port} 🚀`);
     });
   } catch (error) {
     console.error("Unable to connect to Database and Start the server 🚫", error);
@@ -63,9 +63,9 @@ serverInit();
 process.on("SIGINT", () => {
   try {
     mongoose.connection.close(false, () => {
-      console.info("\nThe Database connection has been closed! 💿");
+      console.info("\nThe Database connection has been closed! 📚");
       server.close();
-      console.info("\nThe server has been shut down! 🛑");
+      console.info("The server has been shut down! 🚫");
     });
   } catch (error) {
     console.error("SIGINT signal -> Something went wrong. Closing server. 💥");
