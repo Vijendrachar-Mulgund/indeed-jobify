@@ -106,10 +106,18 @@ export const login = async (request, response, next) => {
 
 export const autoAuthenticate = async (request, response, next) => {
   try {
-    const { authorization } = request.headers;
+    const { cookie } = request.headers;
 
     // Extract the token for the header
-    const token = authorization.split(" ")[1];
+    const auth = cookie.split("=");
+
+    // Check if the cookie contains the Auth token
+    if (auth[0] !== "auth_token") {
+      throw new Error("The token is not valid! Please login again!");
+    }
+
+    // Assign the token value
+    const token = auth[1];
 
     // Validate the JWT and if valid, get the user Id
     const { id, deviceId } = validateToken(token);
