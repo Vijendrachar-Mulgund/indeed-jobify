@@ -7,10 +7,9 @@ const instance = axios.create({
   timeout: REACT_APP_API_TIMEOUT,
 });
 
-const token = localStorage.getItem("auth-token");
+const user = localStorage.getItem("user-id");
 
-if (token) {
-  instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+if (user) {
   instance.defaults.withCredentials = true;
 }
 

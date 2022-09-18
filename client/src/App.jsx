@@ -16,8 +16,6 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound";
 // Jobseekers imports
 import Home from "./pages/JobSeekers/Home/Home";
 
-// Dashboard imports
-
 // Main App component
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,9 +25,9 @@ const App = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const token = localStorage.getItem("auth-token");
+    const userId = localStorage.getItem("user-id");
 
-    if (token) {
+    if (userId) {
       dispatch(userAutoAuth());
     }
   }, [dispatch]);

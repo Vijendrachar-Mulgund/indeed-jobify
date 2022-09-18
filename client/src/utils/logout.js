@@ -14,7 +14,7 @@ export const useLogout = () => {
     console.log("This func was called");
 
     // Remove the token
-    localStorage.removeItem("auth-token");
+    localStorage.removeItem("user-id");
 
     // Navigate the user back to the login page
     navigator("/login");
