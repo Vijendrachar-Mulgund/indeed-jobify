@@ -18,10 +18,10 @@ export const signUp = async (request, response, next) => {
       devices: [device],
     });
 
-    // Generate the JWT token when the Dats is written successfully to the Database
+    // Generate the JWT token when the Data is written successfully to the Database
     const token = user.createUserToken(device.deviceId);
 
-    // Create a dublicate object and remove the PASSWORD before sending the response
+    // Create a duplicate object and remove the PASSWORD before sending the response
     const userData = { ...user?._doc };
     delete userData["password"];
 
@@ -81,7 +81,7 @@ export const login = async (request, response, next) => {
     // If all the validations are cleared, Then we can create the token and send response
     const token = await user.createUserToken(device.deviceId);
 
-    // Create a dublicate object and remove the PASSWORD before sending the response
+    // Create a duplicate object and remove the PASSWORD before sending the response
     const userData = { ...user?._doc };
     delete userData["password"];
 
@@ -127,10 +127,10 @@ export const autoAuthenticate = async (request, response, next) => {
     // Get the user from the data
     const user = await UserModel.findById(id);
 
-    const isDeviceAvailabe = user.devices.find((device) => device.deviceId === deviceId);
+    const isDeviceAvailable = user.devices.find((device) => device.deviceId === deviceId);
 
     // If the Device id in the JWT does not match the user's devices. Send Error response
-    if (!isDeviceAvailabe) {
+    if (!isDeviceAvailable) {
       throw new Error("The token is not valid! Please login again!");
     }
 
