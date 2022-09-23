@@ -24,12 +24,6 @@ const init = async () => {
 
     // Mount the App
     bootstrap();
-
-    console.log("the init");
-
-    axios.interceptors.response.use((response) => {
-      console.log("the response -> ", response);
-    });
   } catch (error) {
     // Try to mount the App anyway
     bootstrap();
