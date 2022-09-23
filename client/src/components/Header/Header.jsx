@@ -3,19 +3,18 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { HeaderWrapper, UserPopover } from "../../styles/modules/HeaderWrapper/HeaderWrapper";
-import { useLogout } from "./../../utils/logout";
+import { logout } from "./../../utils/logout";
 import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
 
 import { Button, Popover, Divider } from "antd";
 import { LoginOutlined, SmileOutlined } from "@ant-design/icons";
 
 const Header = ({ user }) => {
-  const [isUserLoggedin, setIsUserLoggedIn] = useState(false);
-  const [isUserPopoverVisable, setIsUserPopoverVisible] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isUserPopoverVisible, setIsUserPopoverVisible] = useState(false);
 
   const navigator = useNavigate();
   const location = useLocation();
-  const logoutCb = useLogout();
 
   useEffect(() => {
     if (user?.user?._id) {
@@ -44,7 +43,7 @@ const Header = ({ user }) => {
         <Button type="link" block>
           Account
         </Button>
-        <Button onClick={logoutCb} type="link" block>
+        <Button onClick={logout} type="link" block>
           Logout
         </Button>
       </UserPopover>
@@ -59,18 +58,18 @@ const Header = ({ user }) => {
         </div>
         <div className="cta-container">
           {/* If the user is NOT logged in and the is not on the login/signup page*/}
-          {!isUserLoggedin && location.pathname !== "/login" && location.pathname !== "/signup" && (
+          {!isUserLoggedIn && location.pathname !== "/login" && location.pathname !== "/signup" && (
             <Button onClick={handleLoginSignUpClick} type="primary" icon={<LoginOutlined />}>
-              Login / Signup
+              Login / Sign up
             </Button>
           )}
 
           {/* If the user is logged in */}
-          {isUserLoggedin && (
+          {isUserLoggedIn && (
             <Popover
               content={userPopoverContent}
               trigger="click"
-              visible={isUserPopoverVisable}
+              visible={isUserPopoverVisible}
               onVisibleChange={handleUserPopoverVisibleChange}
             >
               <Button type="primary" icon={<SmileOutlined />}>

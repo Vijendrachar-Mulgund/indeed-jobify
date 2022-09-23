@@ -1,5 +1,8 @@
 import axios from "axios";
 
+import { logout } from "./../utils/logout";
+import { message } from "antd";
+
 const { REACT_APP_API_BASE_URL, REACT_APP_API_TIMEOUT } = process.env;
 
 const instance = axios.create({
@@ -8,5 +11,23 @@ const instance = axios.create({
 });
 
 instance.defaults.withCredentials = true;
+
+instance.interceptors.response.use(
+  (response) => {
+    // Pass the Response forward
+    return response;
+  },
+  (error) => {
+    // The token is invalid, log the user out
+    if (error?.response?.status === 401) {
+      logout();
+    }
+
+    // Error handler for all the axios requests
+    message.error(error?.response?.data?.message);
+
+    return error;
+  },
+);
 
 export default instance;

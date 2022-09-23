@@ -13,7 +13,7 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
-// Jobseekers imports
+// Job Seekers imports
 import Home from "./pages/JobSeekers/Home/Home";
 
 // Main App component

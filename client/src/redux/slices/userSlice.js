@@ -6,7 +6,7 @@ const setUserAction = (state, action) => {
   const userData = action.payload;
 
   if (userData) {
-    // Set the user to localstorage
+    // Set the user to local storage
     localStorage.setItem("user-id", userData?.user?._id);
 
     return { ...state, ...userData };

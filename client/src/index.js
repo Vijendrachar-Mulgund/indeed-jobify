@@ -9,6 +9,7 @@ import "./index.scss";
 import App from "./App";
 import "antd/dist/antd.min.css";
 import { store } from "./redux/store";
+import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -23,6 +24,12 @@ const init = async () => {
 
     // Mount the App
     bootstrap();
+
+    console.log("the init");
+
+    axios.interceptors.response.use((response) => {
+      console.log("the response -> ", response);
+    });
   } catch (error) {
     // Try to mount the App anyway
     bootstrap();
@@ -39,9 +46,9 @@ const bootstrap = () => {
           <App />
         </Router>
       </React.StrictMode>
-    </Provider>
+    </Provider>,
   );
 };
 
-// Initilize the App
+// Initialize the App
 init();
