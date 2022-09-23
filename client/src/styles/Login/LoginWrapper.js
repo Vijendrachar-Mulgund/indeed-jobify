@@ -24,7 +24,7 @@ const LoginWrapper = styled.div`
     }
 
     &-box-container {
-      width: 25vw;
+      min-width: 25vw;
       border-radius: 10px;
       padding: 2rem;
 
