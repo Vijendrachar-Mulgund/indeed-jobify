@@ -138,10 +138,9 @@ export const autoAuthenticate = async (request, response, next) => {
     response.status(httpStatus.success).json({
       status: "success",
       user,
-      token,
     });
   } catch (error) {
-    errorHandler(httpStatus.badGateway, error, next);
+    errorHandler(httpStatus.unauthorized, error, next);
   }
 };
 
@@ -151,6 +150,6 @@ export const logout = async (request, response, next) => {
       status: "success",
     });
   } catch (error) {
-    errorHandler(httpStatus.badGateway, error, next);
+    errorHandler(httpStatus.badRequest, error, next);
   }
 };
