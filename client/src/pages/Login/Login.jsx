@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Divider } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { emailValidation, validatePassword } from "./../../utils/validationUtil";
+import { getGoogleOAuthURI } from "./../../oauth/google/google-oauth";
 
 import { userLogin } from "../../redux/slices/userSlice";
 
@@ -49,6 +50,11 @@ const Login = () => {
           return { ...prevState };
         });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    const googleRedirectUrl = getGoogleOAuthURI();
+    window.open(googleRedirectUrl, "_self");
   };
 
   return (
@@ -112,7 +118,7 @@ const Login = () => {
         <Divider>Or</Divider>
 
         <div className="login-social">
-          <Button icon={<GoogleOutlined />} block>
+          <Button onClick={handleGoogleLogin} icon={<GoogleOutlined />} block>
             Google
           </Button>
         </div>

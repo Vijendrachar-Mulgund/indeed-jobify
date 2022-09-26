@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Please enter a password"],
     minlength: 8,
     select: false,
   },
@@ -34,6 +33,10 @@ const userSchema = new mongoose.Schema({
   },
   devices: {
     type: Array,
+  },
+  signInMethod: {
+    type: String,
+    default: "email",
   },
   createdAt: {
     type: Date,

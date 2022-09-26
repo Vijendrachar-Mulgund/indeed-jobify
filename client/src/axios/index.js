@@ -24,7 +24,8 @@ instance.interceptors.response.use(
     }
 
     // Error handler for all the axios requests
-    message.error(error?.response?.data?.message);
+    const errorMessage = error?.response?.data?.message || "Something went wrong. Please try again later 🤕";
+    message.error(errorMessage);
 
     return error;
   },

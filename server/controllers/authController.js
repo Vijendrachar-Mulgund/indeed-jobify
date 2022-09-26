@@ -3,8 +3,9 @@ import httpStatus from "../enums/httpStatusCodes.js";
 
 import { validateDevice } from "./../utils/deviceManagement.js";
 import { validateToken } from "./../utils/validateToken.js";
-
 import { errorHandler } from "../utils/error.js";
+
+import { getGoogleOAuthTokens, getGoogleUser } from "./../services/user-service.js";
 
 export const signUp = async (request, response, next) => {
   try {
@@ -141,6 +142,18 @@ export const autoAuthenticate = async (request, response, next) => {
     });
   } catch (error) {
     errorHandler(httpStatus.unauthorized, error, next);
+  }
+};
+
+export const googleOAuthHandler = async (request, response, next) => {
+  try {
+    const code = request?.query?.code;
+
+    const { id_token, access_token } = await getGoogleOAuthTokens({ code });
+
+    const googleUser = await getGoogleUser({ id_token, access_token });
+  } catch (error) {
+    errorHandler(httpStatus.badRequest, error, next);
   }
 };
 
