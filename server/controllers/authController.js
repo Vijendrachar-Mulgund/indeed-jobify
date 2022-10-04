@@ -149,9 +149,15 @@ export const googleOAuthHandler = async (request, response, next) => {
   try {
     const code = request?.query?.code;
 
+    // Get the google tokens
     const { id_token, access_token } = await getGoogleOAuthTokens({ code });
 
+    // Get the google user with the tokens
     const googleUser = await getGoogleUser({ id_token, access_token });
+
+    // Update the User document
+
+    response.redirect("http://localhost:3000/");
   } catch (error) {
     errorHandler(httpStatus.badRequest, error, next);
   }

@@ -44,3 +44,5 @@ export const getGoogleUser = async ({ id_token, access_token }) => {
     throw new Error(error);
   }
 };
+
+export const findAndUpdateUser = () => {};

@@ -69,10 +69,10 @@ userSchema.methods.createUserToken = function (deviceId) {
 };
 
 // Validate the user password from the user for login
-userSchema.methods.validateUserPassword = async function (candiatePassword, userPassword) {
+userSchema.methods.validateUserPassword = async function (candidatePassword, userPassword) {
   try {
     // Return the value of the Hashed password comparison
-    return await bcrypt.compare(candiatePassword, userPassword);
+    return await bcrypt.compare(candidatePassword, userPassword);
   } catch (error) {
     console.error("Error in comparing password ", error);
     return false;
