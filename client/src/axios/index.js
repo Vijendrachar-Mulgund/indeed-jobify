@@ -20,6 +20,7 @@ instance.interceptors.response.use(
   (error) => {
     // The token is invalid, log the user out
     if (error?.response?.status === 401) {
+      console.log("The condition hit");
       logout();
     }
 

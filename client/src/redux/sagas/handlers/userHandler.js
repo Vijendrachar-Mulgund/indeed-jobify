@@ -2,6 +2,8 @@ import { call, put } from "redux-saga/effects";
 import { loginUser, signUpUser, autoAuthenticate, logoutUser } from "../requests/userRequests";
 import { setUser } from "../../slices/userSlice";
 
+import { removeData } from "./../../../utils/logout";
+
 export function* handleUserLogin(params) {
   try {
     const response = yield call(loginUser, params);
@@ -37,8 +39,8 @@ export function* handleLogOut() {
     const response = yield call(logoutUser);
     const { data } = response;
     if (data?.status === "success") {
-      // Remove the token
-      localStorage.removeItem("user-id");
+      // Clear all data
+      removeData();
     }
     yield put(setUser());
   } catch (error) {

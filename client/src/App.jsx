@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userAutoAuth } from "./redux/slices/userSlice";
 
-import AuthGaurd from "./routerConfig/authGaurd";
+import AuthGuard from "./routerConfig/authGuard";
 
 // Page Imports
 import Header from "./components/Header/Header";
@@ -50,9 +50,9 @@ const App = () => {
             <Route
               path="/"
               element={
-                <AuthGaurd user={user}>
+                <AuthGuard user={user}>
                   <Home />
-                </AuthGaurd>
+                </AuthGuard>
               }
             />
 

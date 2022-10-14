@@ -26,7 +26,6 @@ const Login = () => {
 
   useEffect(() => {
     if (user?.user?._id) {
-      console.log("The user data -> ", user);
       navigator("/");
     }
   }, [user]);
