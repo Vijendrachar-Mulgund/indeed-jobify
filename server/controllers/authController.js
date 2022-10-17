@@ -6,6 +6,7 @@ import { validateToken } from "./../utils/validateToken.js";
 import { errorHandler } from "../utils/error.js";
 
 import { getGoogleOAuthTokens, getGoogleUser } from "./../services/user-service.js";
+import userModel from "./../models/userModel.js";
 
 export const signUp = async (request, response, next) => {
   try {
@@ -155,9 +156,30 @@ export const googleOAuthHandler = async (request, response, next) => {
     // Get the google user with the tokens
     const googleUser = await getGoogleUser({ id_token, access_token });
 
-    // Update the User document
+    // Check if the Google user exists, if yes update the user else create a new one
+    let gUser = await userModel.findOne({ googleId: googleUser?.id });
 
-    response.redirect("http://localhost:3000/");
+    if (gUser) {
+      gUser = await gUser.update({
+        email: googleUser?.email,
+        name: googleUser?.name,
+        googleId: googleUser?.id,
+        isVerifiedAccount: googleUser?.verified_email,
+        displayPicture: googleUser?.picture,
+        signInMethod: "google",
+      });
+    } else {
+      gUser = await userModel.create({
+        email: googleUser?.email,
+        name: googleUser?.name,
+        googleId: googleUser?.id,
+        isVerifiedAccount: googleUser?.verified_email,
+        displayPicture: googleUser?.picture,
+        signInMethod: "google",
+      });
+    }
+
+    response.redirect(process.env.CLIENT_REDIRECT_URL);
   } catch (error) {
     errorHandler(httpStatus.badRequest, error, next);
   }

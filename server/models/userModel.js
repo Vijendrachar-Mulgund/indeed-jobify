@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
-    required: [true, "Please enter your Date of Birth"],
   },
   location: {
     type: String,
@@ -34,11 +33,25 @@ const userSchema = new mongoose.Schema({
   devices: {
     type: Array,
   },
+  displayPicture: {
+    type: String,
+  },
+  isVerifiedAccount: {
+    type: Boolean,
+    default: false,
+  },
+  googleId: {
+    type: String,
+  },
   signInMethod: {
     type: String,
     default: "email",
   },
   createdAt: {
+    type: Date,
+    default: new Date(Date.now()),
+  },
+  updatedAt: {
     type: Date,
     default: new Date(Date.now()),
   },
