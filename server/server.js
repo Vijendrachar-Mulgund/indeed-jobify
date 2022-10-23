@@ -3,7 +3,7 @@ import express from "express";
 
 import mongoose from "mongoose";
 
-// Init the Experess server
+// Init the Express server
 const app = express();
 
 // Imports
@@ -15,8 +15,8 @@ import { connectToMongoDB } from "./db/connectDB.js";
 import authRoutes from "./routes/authRoutes.js";
 
 // Middleware Imports
-import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
-import { notFoundMiddleware } from "./middlewares/notFoundMiddleware.js";
+import { errorHandlerMiddleware } from "./middleware/errorHandlerMiddleware.js";
+import { notFoundMiddleware } from "./middleware/notFoundMiddleware.js";
 
 import { corsOptions } from "./utils/corsConfig.js";
 
@@ -34,7 +34,7 @@ const port = process.env.PORT || 8000;
 // The Route handlers
 app.use("/api/v1/auth", authRoutes);
 
-/* Apply Middlewares */
+/* Apply Middleware */
 // Error handler
 app.use(errorHandlerMiddleware);
 
@@ -43,7 +43,7 @@ app.use(notFoundMiddleware);
 
 let server;
 
-// Connet to DB and start the server
+// Connect to DB and start the server
 const serverInit = async () => {
   try {
     await connectToMongoDB();
