@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { loginUser, signUpUser, autoAuthenticate, logoutUser } from "../requests/userRequests";
+import { loginUser, signUpUser, autoAuthenticate, logoutUser, googleLoginUser } from "../requests/userRequests";
 import { setUser } from "../../slices/userSlice";
 
 import { removeData } from "./../../../utils/logout";
@@ -11,6 +11,18 @@ export function* handleUserLogin(params) {
     yield put(setUser(data));
   } catch (error) {
     console.error("Login error ", error);
+  }
+}
+
+export function* handleGoogleUserLoginAction(params) {
+  try {
+    const response = yield call(googleLoginUser, params);
+    const { data } = response;
+    console.log("The response -> ", response);
+    // Redirect the user to the Google OAuth page
+    window.open(data?.url, "_self");
+  } catch (error) {
+    console.error("Google Login error ", error);
   }
 }
 

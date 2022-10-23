@@ -185,6 +185,22 @@ export const googleOAuthHandler = async (request, response, next) => {
   }
 };
 
+export const googleOAuthInitHandler = (request, response, next) => {
+  try {
+    const { SERVER_BASE_URL } = process.env;
+
+    // Construct the redirection URL
+    const redirectUrl = `${SERVER_BASE_URL}api/v1/auth/login/google`;
+
+    response.status(httpStatus.success).json({
+      status: "success",
+      url: redirectUrl,
+    });
+  } catch (error) {
+    errorHandler(httpStatus.badRequest, error, next);
+  }
+};
+
 export const logout = async (request, response, next) => {
   try {
     response.status(httpStatus.success).clearCookie("auth_token").json({

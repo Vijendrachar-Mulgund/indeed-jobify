@@ -1,5 +1,5 @@
 import userModel from "../models/userModel.js";
-import constants from "./../config/consts.js";
+import constants from "../config/constants.js";
 
 export const validateDevice = async (userDevice, user) => {
   try {

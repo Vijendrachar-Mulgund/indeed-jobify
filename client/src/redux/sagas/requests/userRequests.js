@@ -4,6 +4,10 @@ export function loginUser(context) {
   return axios.post("auth/login", context.payload);
 }
 
+export function googleLoginUser(context) {
+  return axios.post("auth/login/google-init", context.payload);
+}
+
 export function signUpUser(context) {
   return axios.post("auth/signup", context.payload);
 }

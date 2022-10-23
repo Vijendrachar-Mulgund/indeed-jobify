@@ -9,6 +9,8 @@ const app = express();
 // Imports
 import dotenv from "dotenv";
 import cors from "cors";
+import cookieSession from "cookie-session";
+import passport from "passport";
 import { connectToMongoDB } from "./db/connectDB.js";
 
 // Route handler Imports
@@ -30,6 +32,15 @@ app.use(cors(corsOptions()));
 app.use(express.json());
 
 const port = process.env.PORT || 8000;
+
+// Setup Cookie session
+app.use(cookieSession({ name: "auth_token", keys: ["test"], maxAge: 24 * 60 * 60 * 100 }));
+
+// Setup Passport JS
+app.use(passport.initialize());
+app.use(passport.session());
+
+import "./utils/auth/googlePassport.js";
 
 // The Route handlers
 app.use("/api/v1/auth", authRoutes);

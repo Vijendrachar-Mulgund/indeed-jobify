@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Divider } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { emailValidation, validatePassword } from "./../../utils/validationUtil";
-import { getGoogleOAuthURI } from "./../../oauth/google/google-oauth";
 
-import { userLogin } from "../../redux/slices/userSlice";
+import { userGoogleLogin, userLogin } from "../../redux/slices/userSlice";
 
 import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
 import { useEffect } from "react";
@@ -52,8 +51,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    const googleRedirectUrl = getGoogleOAuthURI();
-    window.open(googleRedirectUrl, "_self");
+    dispatch(userGoogleLogin());
   };
 
   return (

@@ -7,6 +7,10 @@ const httpStatusCode = Object.freeze({
   noContent: 204,
   resetContent: 205,
 
+  // Redirection responses
+  multipleChoices: 300,
+  found: 302,
+
   // Client error responses
   badRequest: 400,
   unauthorized: 401,

@@ -23,18 +23,21 @@ const userAutoAuthAction = () => {};
 
 const userLogOutAction = () => {};
 
+const userGoogleLoginAction = () => {};
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
     setUser: setUserAction,
     userLogin: userLoginAction,
+    userGoogleLogin: userGoogleLoginAction,
     userSignUp: userSignUpAction,
     userAutoAuth: userAutoAuthAction,
     userLogOut: userLogOutAction,
   },
 });
 
-export const { setUser, userLogin, userSignUp, userAutoAuth, userLogOut, reset } = userSlice.actions;
+export const { setUser, userLogin, userGoogleLogin, userSignUp, userAutoAuth, userLogOut, reset } = userSlice.actions;
 
 export default userSlice.reducer;
