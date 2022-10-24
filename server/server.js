@@ -11,6 +11,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieSession from "cookie-session";
 import passport from "passport";
+
+import { googlePassportInit } from "./utils/auth/googlePassport.js";
 import { connectToMongoDB } from "./db/connectDB.js";
 
 // Route handler Imports
@@ -40,7 +42,8 @@ app.use(cookieSession({ name: "auth_token", keys: ["test"], maxAge: 24 * 60 * 60
 app.use(passport.initialize());
 app.use(passport.session());
 
-import "./utils/auth/googlePassport.js";
+// Google passport middleware
+googlePassportInit();
 
 // The Route handlers
 app.use("/api/v1/auth", authRoutes);
