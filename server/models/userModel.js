@@ -60,10 +60,12 @@ const userSchema = new mongoose.Schema({
 // Encrypt the password before saving it to the database
 userSchema.pre("save", async function () {
   try {
-    // Salt the password
-    const salt = await bcrypt.genSalt(parseInt(process.env.PASSWORD_SALT_VALUE));
-    // Hash the password and store it in DB
-    this.password = await bcrypt.hash(this.password, salt);
+    if (this.password) {
+      // Salt the password
+      const salt = await bcrypt.genSalt(parseInt(process.env.PASSWORD_SALT_VALUE));
+      // Hash the password and store it in DB
+      this.password = await bcrypt.hash(this.password, salt);
+    }
   } catch (error) {
     console.error("Error in password Hashing", error);
   }

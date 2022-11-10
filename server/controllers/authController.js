@@ -156,28 +156,35 @@ export const googleOAuthHandler = async (request, response, next) => {
     // Get the google user with the tokens
     const googleUser = await getGoogleUser({ id_token, access_token });
 
-    // Check if the Google user exists, if yes update the user else create a new one
-    let gUser = await userModel.findOne({ googleId: googleUser?.id });
+    // Upsert the user into the database
+    const gUser = await userModel.updateOne(
+      { googleId: googleUser?.id },
+      {
+        email: googleUser?.email,
+        name: googleUser?.name,
+        googleId: googleUser?.id,
+        isVerifiedAccount: googleUser?.verified_email,
+        displayPicture: googleUser?.picture,
+        signInMethod: "google",
+      },
+      { upsert: true },
+    );
 
-    if (gUser) {
-      gUser = await gUser.update({
-        email: googleUser?.email,
-        name: googleUser?.name,
-        googleId: googleUser?.id,
-        isVerifiedAccount: googleUser?.verified_email,
-        displayPicture: googleUser?.picture,
-        signInMethod: "google",
-      });
-    } else {
-      gUser = await userModel.create({
-        email: googleUser?.email,
-        name: googleUser?.name,
-        googleId: googleUser?.id,
-        isVerifiedAccount: googleUser?.verified_email,
-        displayPicture: googleUser?.picture,
-        signInMethod: "google",
-      });
-    }
+    console.log("The user gUser -> ", gUser);
+
+    // If all the validations are cleared, Then we can create the token and send response
+    const token = "Test_token";
+
+    // Create a duplicate object and remove the PASSWORD before sending the response
+    // const userData = { ...user?._doc };
+    // delete userData["password"];
+
+    // Create and send the JWT via a cookie
+    response.cookie("auth_token", token, {
+      expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: request.secure || request.headers["x-forwarded-proto"] === "https",
+    });
 
     response.redirect(process.env.CLIENT_REDIRECT_URL);
   } catch (error) {
