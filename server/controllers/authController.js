@@ -126,8 +126,12 @@ export const autoAuthenticate = async (request, response, next) => {
       throw new Error("The token is not valid! Please login again!");
     }
 
-    // Get the user from the data
+    // Get the user from the database
     const user = await UserModel.findById(id);
+
+    if (!user) {
+      throw new Error("The User does not exist! Please login again!");
+    }
 
     const isDeviceAvailable = user.devices.find((device) => device.deviceId === deviceId);
 
@@ -185,6 +189,54 @@ export const googleOAuthHandler = async (request, response, next) => {
 
     // Redirect the client
     response.redirect(redirectUrl);
+  } catch (error) {
+    errorHandler(httpStatus.badRequest, error, next);
+  }
+};
+
+export const authenticate = async (request, response, next) => {
+  try {
+    const { cookie } = request.headers;
+
+    const { device } = request.body;
+
+    // Extract the token for the header
+    const auth = cookie.split("=");
+
+    // Check if the cookie contains the Auth token
+    if (auth[0] !== "auth_token") {
+      throw new Error("The token is not valid! Please login again!");
+    }
+
+    // Assign the token value
+    const token = auth[1];
+
+    // Validate the JWT and if valid, get the user Id
+    const { id } = validateToken(token);
+
+    if (!id) {
+      throw new Error("The token is not valid! Please login again!");
+    }
+
+    // Get the user from the database
+    const user = await UserModel.findById(id);
+
+    if (!user) {
+      throw new Error("The User does not exist! Please login again!");
+    }
+
+    // Check for Device limitation
+    const checkDevice = await validateDevice(device, user);
+
+    if (checkDevice && typeof checkDevice === "string") {
+      throw new Error(checkDevice);
+    }
+
+    // Send the response with the user data
+    response.status(httpStatus.success).json({
+      status: "success",
+      user,
+    });
   } catch (error) {
     errorHandler(httpStatus.badRequest, error, next);
   }
