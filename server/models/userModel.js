@@ -72,10 +72,17 @@ userSchema.pre("save", async function () {
 });
 
 // Generate the User token
-userSchema.methods.createUserToken = function (deviceId) {
+userSchema.methods.createUserToken = function (deviceId = null) {
   try {
+    const jwtParams = { id: this._id };
+
+    // If the Device id exists, pass it to the JWT
+    if (deviceId) {
+      jwtParams.deviceId = deviceId;
+    }
+
     // Sign the JWT with secret and User ID
-    return JWT.sign({ id: this._id, deviceId }, process.env.JWT_SECRET, {
+    return JWT.sign(jwtParams, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_LIFETIME,
     });
   } catch (error) {

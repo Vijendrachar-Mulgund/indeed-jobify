@@ -157,7 +157,7 @@ export const googleOAuthHandler = async (request, response, next) => {
     const googleUser = await getGoogleUser({ id_token, access_token });
 
     // Upsert the user into the database
-    const gUser = await userModel.updateOne(
+    const gUser = await userModel.findOneAndUpdate(
       { googleId: googleUser?.id },
       {
         email: googleUser?.email,
@@ -167,17 +167,11 @@ export const googleOAuthHandler = async (request, response, next) => {
         displayPicture: googleUser?.picture,
         signInMethod: "google",
       },
-      { upsert: true },
+      { upsert: true, returnDocument: true },
     );
 
-    console.log("The user gUser -> ", gUser);
-
     // If all the validations are cleared, Then we can create the token and send response
-    const token = "Test_token";
-
-    // Create a duplicate object and remove the PASSWORD before sending the response
-    // const userData = { ...user?._doc };
-    // delete userData["password"];
+    const token = await gUser.createUserToken();
 
     // Create and send the JWT via a cookie
     response.cookie("auth_token", token, {
@@ -186,7 +180,11 @@ export const googleOAuthHandler = async (request, response, next) => {
       secure: request.secure || request.headers["x-forwarded-proto"] === "https",
     });
 
-    response.redirect(process.env.CLIENT_REDIRECT_URL);
+    // Construct the URL for redirection
+    const redirectUrl = `${process.env.CLIENT_REDIRECT_URL}?login=google`;
+
+    // Redirect the client
+    response.redirect(redirectUrl);
   } catch (error) {
     errorHandler(httpStatus.badRequest, error, next);
   }
