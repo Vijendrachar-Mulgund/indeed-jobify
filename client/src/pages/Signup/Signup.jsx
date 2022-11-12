@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Form, Input, DatePicker } from "antd";
@@ -16,6 +16,8 @@ const Login = () => {
 
   const navigator = useNavigate();
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
 
   const handleInput = (type, event) => {
     switch (type) {
@@ -60,6 +62,12 @@ const Login = () => {
   const handleSignUpSubmit = () => {
     dispatch(userSignUp(signUpData));
   };
+
+  useEffect(() => {
+    if (user?._id) {
+      navigator("/");
+    }
+  }, [user]);
 
   return (
     <SignupWrapper>
