@@ -9,7 +9,6 @@ import "./index.scss";
 import App from "./App";
 import "antd/dist/antd.min.css";
 import { store } from "./redux/store";
-import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -28,7 +27,7 @@ const init = async () => {
     // Try to mount the App anyway
     bootstrap();
 
-    console.error("Something went wrong -> ", error);
+    console.error("Something went wrong ", error);
   }
 };
 

@@ -17,7 +17,7 @@ const Header = ({ user }) => {
   const location = useLocation();
 
   useEffect(() => {
-    if (user?.user?._id) {
+    if (user?._id) {
       setIsUserLoggedIn(true);
     } else {
       setIsUserLoggedIn(false);
@@ -37,8 +37,8 @@ const Header = ({ user }) => {
   const userPopoverContent = () => {
     return (
       <UserPopover>
-        <h3>{user?.user?.name}</h3>
-        <p>{user?.user?.email}</p>
+        <h3>{user?.name}</h3>
+        <p>{user?.email}</p>
         <Divider style={{ margin: "10px" }} />
         <Button type="link" block>
           Account
@@ -73,7 +73,7 @@ const Header = ({ user }) => {
               onVisibleChange={handleUserPopoverVisibleChange}
             >
               <Button type="primary" icon={<SmileOutlined />}>
-                {user?.user?.name}
+                {user?.name}
               </Button>
             </Popover>
           )}

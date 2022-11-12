@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userAutoAuth } from "./redux/slices/userSlice";
+import { userAutoAuth, userAuth } from "./redux/slices/userSlice";
 
 import AuthGuard from "./routerConfig/authGuard";
 
@@ -21,8 +21,19 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const [params, setParams] = useSearchParams();
 
   const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (params.get("login") === "google") {
+      const device = localStorage.getItem("deviceInfo");
+
+      if (device) {
+        dispatch(userAuth({ device: JSON.parse(device) }));
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const userId = localStorage.getItem("user-id");

@@ -60,20 +60,29 @@ const userSchema = new mongoose.Schema({
 // Encrypt the password before saving it to the database
 userSchema.pre("save", async function () {
   try {
-    // Salt the password
-    const salt = await bcrypt.genSalt(parseInt(process.env.PASSWORD_SALT_VALUE));
-    // Hash the password and store it in DB
-    this.password = await bcrypt.hash(this.password, salt);
+    if (this.password) {
+      // Salt the password
+      const salt = await bcrypt.genSalt(parseInt(process.env.PASSWORD_SALT_VALUE));
+      // Hash the password and store it in DB
+      this.password = await bcrypt.hash(this.password, salt);
+    }
   } catch (error) {
     console.error("Error in password Hashing", error);
   }
 });
 
 // Generate the User token
-userSchema.methods.createUserToken = function (deviceId) {
+userSchema.methods.createUserToken = function (deviceId = null) {
   try {
+    const jwtParams = { id: this._id };
+
+    // If the Device id exists, pass it to the JWT
+    if (deviceId) {
+      jwtParams.deviceId = deviceId;
+    }
+
     // Sign the JWT with secret and User ID
-    return JWT.sign({ id: this._id, deviceId }, process.env.JWT_SECRET, {
+    return JWT.sign(jwtParams, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_LIFETIME,
     });
   } catch (error) {
