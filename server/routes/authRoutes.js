@@ -18,7 +18,7 @@ router.route("/login/google").get(googleOAuthHandler);
 
 router.route("/login").post(login);
 
-router.route("/authenticate").get(authenticate);
+router.route("/authenticate").post(authenticate);
 
 router.route("/auto-authenticate").get(autoAuthenticate);
 

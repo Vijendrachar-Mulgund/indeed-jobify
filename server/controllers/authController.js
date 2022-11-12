@@ -161,7 +161,7 @@ export const googleOAuthHandler = async (request, response, next) => {
     const googleUser = await getGoogleUser({ id_token, access_token });
 
     // Upsert the user into the database
-    const gUser = await userModel.findOneAndUpdate(
+    let gUser = await userModel.findOneAndUpdate(
       { googleId: googleUser?.id },
       {
         email: googleUser?.email,
@@ -173,6 +173,11 @@ export const googleOAuthHandler = async (request, response, next) => {
       },
       { upsert: true, returnDocument: true },
     );
+
+    // For the first time when the user is inserted, the data is not returned, Hence need to get the user
+    if (!gUser) {
+      gUser = await userModel.findOne({ googleId: googleUser?.id });
+    }
 
     // If all the validations are cleared, Then we can create the token and send response
     const token = await gUser.createUserToken();
@@ -197,7 +202,6 @@ export const googleOAuthHandler = async (request, response, next) => {
 export const authenticate = async (request, response, next) => {
   try {
     const { cookie } = request.headers;
-
     const { device } = request.body;
 
     // Extract the token for the header
@@ -231,6 +235,16 @@ export const authenticate = async (request, response, next) => {
     if (checkDevice && typeof checkDevice === "string") {
       throw new Error(checkDevice);
     }
+
+    // If all the validations are cleared, Then we can create the token and send response
+    const refreshedToken = await user.createUserToken(device.deviceId);
+
+    // Create and send the JWT via a cookie
+    response.cookie("auth_token", refreshedToken, {
+      expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: request.secure || request.headers["x-forwarded-proto"] === "https",
+    });
 
     // Send the response with the user data
     response.status(httpStatus.success).json({
