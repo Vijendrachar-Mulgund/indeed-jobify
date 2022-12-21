@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginWrapper } from "./../../styles/Login/LoginWrapper";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, Divider } from "antd";
-import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
+import { GoogleOutlined } from "@ant-design/icons";
 import { emailValidation, validatePassword } from "./../../utils/validationUtil";
 import { getGoogleOAuthURI } from "./../../oauth/google/google-oauth";
-
 import { userLogin } from "../../redux/slices/userSlice";
 
 import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
-import { useEffect } from "react";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ device: JSON.parse(localStorage.getItem("deviceInfo")) });
@@ -119,12 +117,6 @@ const Login = () => {
         <div className="login-social">
           <Button onClick={handleGoogleLogin} icon={<GoogleOutlined />} block>
             Google
-          </Button>
-        </div>
-
-        <div className="login-social">
-          <Button icon={<FacebookFilled />} block>
-            Facebook
           </Button>
         </div>
       </div>
