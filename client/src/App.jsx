@@ -6,8 +6,6 @@ import { useDispatch } from "react-redux";
 import { userAutoAuth, userAuth } from "./redux/slices/userSlice";
 
 // Page Imports
-import Header from "./components/Header/Header";
-
 import { unprotectedRoutes, protectedRoutes } from "./router/config";
 import AuthGuard from "./router/guard";
 
@@ -40,7 +38,6 @@ const App = () => {
     <div className="App">
       <div className="App-container">
         {/* Header */}
-        <Header />
 
         {/* The router Config */}
         <div>

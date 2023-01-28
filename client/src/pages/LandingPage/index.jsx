@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { getConfigValue } from "../../firebase/config";
-import { LandingPageContainer } from "../../styles/LandingPage/LandingPageContainer";
 import { useNavigate } from "react-router-dom";
 
-import { LandingPageCover } from "../../assets";
+import { LandingPageContainer } from "./styles";
+import { Button } from "../../components/atoms";
 
-// const { LandingPageCover } = Asset;
+import { getConfigValue } from "../../firebase/config";
+
+import { LandingPageCover } from "../../assets";
 
 const LandingPage = () => {
   const [welcomeMessage, setWelcomeMessage] = useState({});
@@ -22,13 +23,17 @@ const LandingPage = () => {
 
   return (
     <LandingPageContainer>
+      {/* Left side */}
       <div className="left-side">
         <h3>{welcomeMessage?.title}</h3>
         <p>{welcomeMessage?.message}</p>
+
+        <Button onClick={handleLoginRegisterClick} label="Go to Login Page" />
       </div>
+
+      {/* Right side */}
       <div className="right-side">
-        <LandingPageCover />
-        {/* <img src={LandingPageCover} alt="Landing-Page-cover" /> */}
+        <LandingPageCover className="cover" />
       </div>
     </LandingPageContainer>
   );
