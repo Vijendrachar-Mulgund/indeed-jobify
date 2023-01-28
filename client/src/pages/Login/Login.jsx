@@ -2,9 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LoginWrapper } from "./../../styles/Login/LoginWrapper";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Input, Divider } from "antd";
-import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
-import { emailValidation, validatePassword } from "./../../utils/validationUtil";
 import { getGoogleOAuthURI } from "./../../oauth/google/google-oauth";
 
 import { userLogin } from "../../redux/slices/userSlice";
@@ -65,9 +62,9 @@ const Login = () => {
 
         <p className="login-text">Please enter your credentials to login!</p>
 
-        <Form name="basic" layout="vertical" onFinish={handleLoginSubmit}>
-          {/* For Email or Username */}
-          <Form.Item
+        {/* <Form name="basic" layout="vertical" onFinish={handleLoginSubmit}> */}
+        {/* For Email or Username */}
+        {/* <Form.Item
             label="Email or Username"
             name="email"
             rules={[
@@ -82,10 +79,10 @@ const Login = () => {
             hasFeedback
           >
             <Input onChange={(e) => handleUserInput("email", e)} />
-          </Form.Item>
+          </Form.Item> */}
 
-          {/* For password */}
-          <Form.Item
+        {/* For password */}
+        {/* <Form.Item
             label="Password"
             name="password"
             rules={[
@@ -100,32 +97,31 @@ const Login = () => {
             hasFeedback
           >
             <Input.Password onChange={(e) => handleUserInput("password", e)} />
-          </Form.Item>
+          </Form.Item> */}
 
-          {/* Submit button */}
-          <Form.Item>
+        {/* <Form.Item>
             <Button block type="primary" htmlType="submit">
               Submit
             </Button>
-          </Form.Item>
-        </Form>
+          </Form.Item> */}
+        {/* </Form> */}
 
         <p className="signup-message" onClick={() => navigator("/signup")}>
-          Don't have an account?<Button type="link">Sign up</Button>
+          {/* Don't have an account?<Button type="link">Sign up</Button> */}
         </p>
 
-        <Divider>Or</Divider>
+        {/* <Divider>Or</Divider> */}
 
         <div className="login-social">
-          <Button onClick={handleGoogleLogin} icon={<GoogleOutlined />} block>
+          {/* <Button onClick={handleGoogleLogin} icon={<GoogleOutlined />} block>
             Google
-          </Button>
+          </Button> */}
         </div>
 
         <div className="login-social">
-          <Button icon={<FacebookFilled />} block>
+          {/* <Button icon={<FacebookFilled />} block>
             Facebook
-          </Button>
+          </Button> */}
         </div>
       </div>
     </LoginWrapper>

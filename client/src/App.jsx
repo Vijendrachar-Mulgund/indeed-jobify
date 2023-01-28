@@ -1,29 +1,22 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userAutoAuth, userAuth } from "./redux/slices/userSlice";
+import React from "react";
 
-import AuthGuard from "./routerConfig/authGuard";
+import { useEffect } from "react";
+import { Routes, Route, useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userAutoAuth, userAuth } from "./redux/slices/userSlice";
 
 // Page Imports
 import Header from "./components/Header/Header";
-import PageLoader from "./components/PageLoader/PageLoader";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import Login from "./pages/Login/Login";
-import Signup from "./pages/Signup/Signup";
-import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
-// Job Seekers imports
-import Home from "./pages/JobSeekers/Home/Home";
+import { unprotectedRoutes, protectedRoutes } from "./router/config";
+import AuthGuard from "./router/guard";
+
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 // Main App component
 const App = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const dispatch = useDispatch();
   const [params, setParams] = useSearchParams();
-
-  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (params.get("login") === "google") {
@@ -47,37 +40,30 @@ const App = () => {
     <div className="App">
       <div className="App-container">
         {/* Header */}
-        <Header user={user} />
+        <Header />
 
         {/* The router Config */}
         <div>
           <Routes>
-            <Route path="/landing" element={<LandingPage />} />
-            {/* The Auth routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            {/* Unprotected routes */}
+            {unprotectedRoutes?.length &&
+              unprotectedRoutes?.map((route, index) => (
+                <Route key={index} path={route?.path} element={route?.element} />
+              ))}
 
-            {/* The Job seekers routes */}
-            <Route
-              path="/"
-              element={
-                <AuthGuard user={user}>
-                  <Home />
-                </AuthGuard>
-              }
-            />
+            {/* Protected routes */}
+            {protectedRoutes?.length &&
+              protectedRoutes?.map((route, index) => (
+                <Route element={<AuthGuard />}>
+                  <Route key={index} path={route?.path} element={route?.element} />
+                </Route>
+              ))}
 
             {/* Wildcard routes */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
       </div>
-
-      {isLoading && (
-        <div className="App-loader">
-          <PageLoader />
-        </div>
-      )}
     </div>
   );
 };

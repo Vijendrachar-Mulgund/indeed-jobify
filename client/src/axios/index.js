@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { logout } from "./../utils/logout";
-import { message } from "antd";
+// import { message } from "antd";
 
 const { REACT_APP_API_BASE_URL, REACT_APP_API_TIMEOUT } = process.env;
 
@@ -24,8 +24,6 @@ instance.interceptors.response.use(
     }
 
     // Error handler for all the axios requests
-    const errorMessage = error?.response?.data?.message || "Something went wrong. Please try again later 🤕";
-    message.error(errorMessage);
 
     return error;
   },
