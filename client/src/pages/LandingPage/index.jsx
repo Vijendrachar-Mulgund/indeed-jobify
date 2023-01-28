@@ -3,7 +3,9 @@ import { getConfigValue } from "../../firebase/config";
 import { LandingPageContainer } from "../../styles/LandingPage/LandingPageContainer";
 import { useNavigate } from "react-router-dom";
 
-import LandingPageCover from "./../../assets/Images/landing-page-cover.svg";
+import { LandingPageCover } from "../../assets";
+
+// const { LandingPageCover } = Asset;
 
 const LandingPage = () => {
   const [welcomeMessage, setWelcomeMessage] = useState({});
@@ -25,7 +27,8 @@ const LandingPage = () => {
         <p>{welcomeMessage?.message}</p>
       </div>
       <div className="right-side">
-        <img src={LandingPageCover} alt="Landing-Page-cover" />
+        <LandingPageCover />
+        {/* <img src={LandingPageCover} alt="Landing-Page-cover" /> */}
       </div>
     </LandingPageContainer>
   );

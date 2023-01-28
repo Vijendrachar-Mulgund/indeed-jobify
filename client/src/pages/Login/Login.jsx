@@ -6,7 +6,7 @@ import { getGoogleOAuthURI } from "./../../oauth/google/google-oauth";
 
 import { userLogin } from "../../redux/slices/userSlice";
 
-import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
+// import { IndeedLogo } from "./../../assets";
 import { useEffect } from "react";
 
 const Login = () => {
@@ -56,9 +56,7 @@ const Login = () => {
   return (
     <LoginWrapper>
       <div className="login-box-container">
-        <div className="login-logo-container">
-          <img className="login-logo" src={IndeedLogo} alt="logo" />
-        </div>
+        <div className="login-logo-container">{/* <img className="login-logo" src={IndeedLogo} alt="logo" /> */}</div>
 
         <p className="login-text">Please enter your credentials to login!</p>
 

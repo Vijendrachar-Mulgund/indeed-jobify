@@ -52,12 +52,12 @@ const App = () => {
               ))}
 
             {/* Protected routes */}
-            {protectedRoutes?.length &&
-              protectedRoutes?.map((route, index) => (
-                <Route element={<AuthGuard />}>
+            <Route element={<AuthGuard />}>
+              {protectedRoutes?.length &&
+                protectedRoutes?.map((route, index) => (
                   <Route key={index} path={route?.path} element={route?.element} />
-                </Route>
-              ))}
+                ))}
+            </Route>
 
             {/* Wildcard routes */}
             <Route path="*" element={<PageNotFound />} />

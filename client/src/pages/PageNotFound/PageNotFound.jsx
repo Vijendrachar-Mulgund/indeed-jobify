@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import { HomeOutlined } from "@ant-design/icons";
 import { PageNotFoundWrapper } from "../../styles/PageNotFound/PageNotFoundWrapper";
 
-import PageNotFoundImage from "./../../assets/Images/page-not-found.svg";
+// import { PageNotFoundImage } from "./../../assets";
 
 const PageNotFound = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const PageNotFound = () => {
   return (
     <PageNotFoundWrapper>
       <div>
-        <img src={PageNotFoundImage} alt="page-not-found" />
+        {/* <img src={PageNotFoundImage} alt="page-not-found" /> */}
         <p>This page is not available.</p>
       </div>
     </PageNotFoundWrapper>

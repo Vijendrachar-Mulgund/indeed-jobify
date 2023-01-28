@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Form, Input, DatePicker } from "antd";
-import { SignupWrapper } from "../../styles/Signup/SignupWrapper";
-import { emailValidation } from "../../utils/validationUtil";
+import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
+import { emailValidation } from "./../../utils/validationUtil";
 
-// import { IndeedLogo } from "./../../assets";
+// import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
 import { userSignUp } from "../../redux/slices/userSlice";
 
 const Login = () => {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { HeaderWrapper, UserPopover } from "../../styles/modules/HeaderWrapper/HeaderWrapper";
-import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
+// import { IndeedLogo } from "./../../assets";
 
 const Header = ({ user }) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -42,9 +42,7 @@ const Header = ({ user }) => {
   return (
     <HeaderWrapper>
       <div className="header-container">
-        <div className="logo-container">
-          <img src={IndeedLogo} alt="indeed-logo" />
-        </div>
+        <div className="logo-container">{/* <IndeedLogo /> */}</div>
         <div className="cta-container">
           {/* If the user is NOT logged in and the is not on the login/signup page*/}
           {!isUserLoggedIn && location.pathname !== "/login" && location.pathname !== "/signup" && (
