@@ -5,6 +5,7 @@ import { Routes, Route, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userAutoAuth, userAuth } from "./redux/slices/userSlice";
 
+import { Toast } from "./components/atoms";
 // Page Imports
 import { unprotectedRoutes, protectedRoutes } from "./router/config";
 import AuthGuard from "./router/guard";
@@ -59,6 +60,9 @@ const App = () => {
             {/* Wildcard routes */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
+
+          {/* Toast message */}
+          <Toast />
         </div>
       </div>
     </div>

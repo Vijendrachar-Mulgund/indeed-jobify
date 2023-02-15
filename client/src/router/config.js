@@ -1,5 +1,5 @@
 import LandingPage from "../pages/LandingPage";
-import Login from "../pages/Login/Login";
+import Login from "../pages/Login";
 import SignUp from "../pages/LandingPage";
 
 import CreateNewJob from "../pages/Dashboard/CreateNewJob";

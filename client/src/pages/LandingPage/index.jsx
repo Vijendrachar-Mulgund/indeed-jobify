@@ -7,6 +7,7 @@ import { Button } from "../../components/atoms";
 import { getConfigValue } from "../../firebase/config";
 
 import { LandingPageCover } from "../../assets";
+import toast from "react-hot-toast";
 
 const LandingPage = () => {
   const [welcomeMessage, setWelcomeMessage] = useState({});
@@ -18,7 +19,8 @@ const LandingPage = () => {
   }, []);
 
   const handleLoginRegisterClick = () => {
-    navigate("/login");
+    // navigate("/login");
+    toast.error("This is test message");
   };
 
   return (
