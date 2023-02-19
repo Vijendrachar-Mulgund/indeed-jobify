@@ -1,6 +1,6 @@
 import LandingPage from "../pages/LandingPage";
-import Login from "../pages/Login";
-import SignUp from "../pages/LandingPage";
+import Login from "../pages/auth/Login";
+import SignUp from "../pages/auth/Signup";
 
 import CreateNewJob from "../pages/Dashboard/CreateNewJob";
 import ViewJob from "../pages/Dashboard/ViewJob";

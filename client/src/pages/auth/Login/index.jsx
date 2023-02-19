@@ -1,34 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoginWrapper } from "./../../styles/Login/LoginWrapper";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Input, Divider } from "antd";
-import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
-import { emailValidation, validatePassword } from "./../../utils/validationUtil";
-import { getGoogleOAuthURI } from "./../../oauth/google/google-oauth";
 
-import { userLogin } from "../../redux/slices/userSlice";
+import { Form, Input, Button, Divider } from "antd";
 
-import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
-import { useEffect } from "react";
+import { LoginWrapper } from "./styles";
+import { getGoogleOAuthURI } from "../../../oauth/google/google-oauth";
+import { userLogin } from "../../../redux/slices/userSlice";
+import { IndeedLogo, GoogleLogo } from "../../../assets";
 
 const Login = () => {
-  const [loginData, setLoginData] = useState({ device: JSON.parse(localStorage.getItem("deviceInfo")) });
-
+  /**
+   * Declarations
+   */
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
+  /**
+   * Component state
+   */
+  const [loginData, setLoginData] = useState({});
+
+  /**
+   * Redux Selectors
+   */
   const user = useSelector((state) => state.user);
 
-  const handleLoginSubmit = () => {
-    dispatch(userLogin(loginData));
-  };
+  /**
+   * UseEffects
+   */
+
+  // Mounted
+  useEffect(() => {
+    const deviceInfo = { device: JSON.parse(localStorage.getItem("deviceInfo")) };
+    setLoginData(deviceInfo);
+  }, []);
 
   useEffect(() => {
     if (user?._id) {
       navigator("/");
     }
   }, [user]);
+
+  /**
+   * Methods and Handlers
+   */
+  const handleLoginSubmit = () => {
+    dispatch(userLogin(loginData));
+  };
 
   const handleUserInput = (type, event) => {
     switch (type) {
@@ -60,7 +79,7 @@ const Login = () => {
     <LoginWrapper>
       <div className="login-box-container">
         <div className="login-logo-container">
-          <img className="login-logo" src={IndeedLogo} alt="logo" />
+          <IndeedLogo height="36" />
         </div>
 
         <p className="login-text">Please enter your credentials to login!</p>
@@ -74,9 +93,6 @@ const Login = () => {
               {
                 required: true,
                 message: "Please input your Email!",
-              },
-              {
-                validator: emailValidation,
               },
             ]}
             hasFeedback
@@ -93,16 +109,12 @@ const Login = () => {
                 required: true,
                 message: "Please input your password!",
               },
-              {
-                validator: validatePassword,
-              },
             ]}
             hasFeedback
           >
             <Input.Password onChange={(e) => handleUserInput("password", e)} />
           </Form.Item>
 
-          {/* Submit button */}
           <Form.Item>
             <Button block type="primary" htmlType="submit">
               Submit
@@ -110,21 +122,17 @@ const Login = () => {
           </Form.Item>
         </Form>
 
+        {/* Sign up button */}
         <p className="signup-message" onClick={() => navigator("/signup")}>
           Don't have an account?<Button type="link">Sign up</Button>
         </p>
 
         <Divider>Or</Divider>
 
+        {/* Social Logins (Google) */}
         <div className="login-social">
-          <Button onClick={handleGoogleLogin} icon={<GoogleOutlined />} block>
+          <Button onClick={handleGoogleLogin} icon={<GoogleLogo height="24" width="24" />} block>
             Google
-          </Button>
-        </div>
-
-        <div className="login-social">
-          <Button icon={<FacebookFilled />} block>
-            Facebook
           </Button>
         </div>
       </div>

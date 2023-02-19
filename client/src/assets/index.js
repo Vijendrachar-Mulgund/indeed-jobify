@@ -6,6 +6,7 @@ import { ReactComponent as PageNotFoundImage } from "./images/landing-page-cover
 
 // Icon imports
 import { ReactComponent as IndeedLogo } from "./icons/Indeed_logo_full.svg";
+import { ReactComponent as GoogleLogo } from "./icons/google.svg";
 
 // Exports
 export {
@@ -15,4 +16,5 @@ export {
 
   // Icons
   IndeedLogo,
+  GoogleLogo,
 };

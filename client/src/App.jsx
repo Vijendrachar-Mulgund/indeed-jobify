@@ -1,22 +1,31 @@
-import React from "react";
-
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+
 import { userAutoAuth, userAuth } from "./redux/slices/userSlice";
-
 import { Toast } from "./components/atoms";
-// Page Imports
 import { unprotectedRoutes, protectedRoutes } from "./router/config";
-import AuthGuard from "./router/guard";
 
+import AuthGuard from "./router/guard";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 // Main App component
 const App = () => {
+  /**
+   * Declarations
+   */
   const dispatch = useDispatch();
-  const [params, setParams] = useSearchParams();
 
+  /**
+   * Router methods
+   */
+  const [params] = useSearchParams();
+
+  /**
+   * UseEffects
+   */
+
+  // Mounted
   useEffect(() => {
     if (params.get("login") === "google") {
       const device = localStorage.getItem("deviceInfo");
@@ -38,8 +47,6 @@ const App = () => {
   return (
     <div className="App">
       <div className="App-container">
-        {/* Header */}
-
         {/* The router Config */}
         <div>
           <Routes>

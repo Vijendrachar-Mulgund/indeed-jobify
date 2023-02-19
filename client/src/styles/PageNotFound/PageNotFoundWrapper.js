@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const PageNotFoundWrapper = styled.div`
+export const PageNotFoundWrapper = styled.div`
   height: calc(100vh - var(--header-height));
 
   display: flex;
@@ -9,8 +9,8 @@ const PageNotFoundWrapper = styled.div`
 
   text-align: center;
 
-  img {
-    height: 25vh;
+  .image-container {
+    height: 100px;
     width: auto;
   }
 
@@ -18,5 +18,3 @@ const PageNotFoundWrapper = styled.div`
     margin: 2rem 0;
   }
 `;
-
-export { PageNotFoundWrapper };
