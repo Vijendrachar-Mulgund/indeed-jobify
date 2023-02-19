@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { getConfigValue } from "./../../firebase/remoteConfig";
-import { LandingPageContainer } from "./../../styles/LandingPage/LandingPageContainer";
-import { LoginOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
-import LandingPageCover from "./../../assets/Images/landing-page-cover.svg";
+import { LandingPageContainer } from "./styles";
+import { Button } from "../../components/atoms";
+
+import { getConfigValue } from "../../firebase/config";
+
+import { LandingPageCover } from "../../assets";
+import toast from "react-hot-toast";
 
 const LandingPage = () => {
   const [welcomeMessage, setWelcomeMessage] = useState({});
@@ -17,20 +19,23 @@ const LandingPage = () => {
   }, []);
 
   const handleLoginRegisterClick = () => {
-    navigate("/login");
+    // navigate("/login");
+    toast.error("This is test message");
   };
 
   return (
     <LandingPageContainer>
+      {/* Left side */}
       <div className="left-side">
         <h3>{welcomeMessage?.title}</h3>
         <p>{welcomeMessage?.message}</p>
-        <Button onClick={handleLoginRegisterClick} type="primary" size="large" icon={<LoginOutlined />}>
-          Login / Register
-        </Button>
+
+        <Button onClick={handleLoginRegisterClick} label="Go to Login Page" />
       </div>
+
+      {/* Right side */}
       <div className="right-side">
-        <img className="landingpage-cover" src={LandingPageCover} alt="Landing-Page-cover" />
+        <LandingPageCover className="cover" />
       </div>
     </LandingPageContainer>
   );

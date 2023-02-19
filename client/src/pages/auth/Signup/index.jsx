@@ -1,13 +1,11 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Form, Input, DatePicker } from "antd";
-import { SignupWrapper } from "./../../styles/Signup/SignupWrapper";
-import { emailValidation } from "./../../utils/validationUtil";
+import { SignupWrapper } from "./styles";
 
-import IndeedLogo from "./../../assets/Logo-icons/Indeed_logo_full.svg";
-import { userSignUp } from "../../redux/slices/userSlice";
+import { userSignUp } from "../../../redux/slices/userSlice";
 
 const Login = () => {
   const [signUpData, setSignUpData] = useState({
@@ -72,9 +70,7 @@ const Login = () => {
   return (
     <SignupWrapper>
       <div className="login-box-container">
-        <div className="login-logo-container">
-          <img className="login-logo" src={IndeedLogo} alt="logo" />
-        </div>
+        <div className="login-logo-container">{/* <img className="login-logo" src={IndeedLogo} alt="logo" /> */}</div>
 
         <p className="login-text">Create a new account!</p>
 
@@ -101,9 +97,6 @@ const Login = () => {
               {
                 required: true,
                 message: "Please input your Email!",
-              },
-              {
-                validator: emailValidation,
               },
             ]}
             hasFeedback

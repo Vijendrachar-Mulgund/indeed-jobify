@@ -1,7 +1,7 @@
 import { getValue } from "firebase/remote-config";
 import { fetchAndActivate } from "firebase/remote-config";
 
-import { firebaseRemoteConfig } from "./";
+import { firebaseRemoteConfig } from ".";
 
 export const fetchAndActivateRemoteConfig = async () => {
   try {
