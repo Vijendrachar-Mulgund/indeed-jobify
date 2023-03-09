@@ -3,7 +3,7 @@ import express from "express";
 
 import mongoose from "mongoose";
 
-// Init the Experess server
+// Init the Express server
 const app = express();
 
 // Imports
@@ -43,7 +43,7 @@ app.use(notFoundMiddleware);
 
 let server;
 
-// Connet to DB and start the server
+// Connect to DB and start the server
 const serverInit = async () => {
   try {
     await connectToMongoDB();
