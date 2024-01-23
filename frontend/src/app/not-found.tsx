@@ -4,7 +4,7 @@ import NotfoundImage from "/public/images/page-not-found.svg";
 
 function NotFound() {
   return (
-    <main className="h-screen flex items-center justify-center">
+    <main className="flex h-screen items-center justify-center">
       <Image src={NotfoundImage} alt="not-found" className="h-96"></Image>
       This page could not be found
     </main>
