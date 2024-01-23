@@ -7,7 +7,7 @@ import Header from "@/components/header";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Indeed Jobify",
+  title: "Jobify",
   description: "Find Jobs!",
 };
 
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={montserrat.className}>
         <Header />
-        {children}
+        <section className="max-w-[100rem] w-full mx-auto">{children}</section>
       </body>
     </html>
   );

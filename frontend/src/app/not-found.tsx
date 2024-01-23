@@ -1,12 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import Notfound from "../../public/images/page-not-found.svg";
+import NotfoundImage from "/public/images/page-not-found.svg";
 
 function NotFound() {
   return (
-    <main>
-      <Image src="/images/page-not-found.svg" alt="not-found" width="100" height="100"></Image>
-      NotFound Test Two
+    <main className="h-screen flex items-center justify-center">
+      <Image src={NotfoundImage} alt="not-found" className="h-96"></Image>
+      This page could not be found
     </main>
   );
 }
