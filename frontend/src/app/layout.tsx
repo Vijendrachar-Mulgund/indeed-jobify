@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/main/header";
+import { ReduxProvider } from "@/redux/provider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -17,10 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html data-theme="forest" lang="en">
+    <html lang="en">
       <body className={montserrat.className}>
-        <Header />
-        <section className="mx-auto w-full max-w-[100rem]">{children}</section>
+        <ReduxProvider>
+          <Header />
+          <section className="mx-auto w-full max-w-[100rem]">
+            {children}
+          </section>
+        </ReduxProvider>
       </body>
     </html>
   );

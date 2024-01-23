@@ -1,14 +1,13 @@
+// Next & React imports
 import React from "react";
-
 import Image from "next/image";
 import Link from "next/link";
 
-import JobifyLogo from "/public/icons/jobify_icon_32.svg";
+// Component Imports
+import ThemeSelector from "@/components/main/theme-selector";
 
-const themes = [
-  { label: "Dark", icon: "", value: "forest" },
-  { label: "Light", icon: "", value: "pastel" },
-];
+// Misc Imports
+import JobifyLogo from "/public/icons/jobify_icon_32.svg";
 
 function Header() {
   return (
@@ -31,18 +30,7 @@ function Header() {
 
             {/* Theme Selector */}
             <li>
-              <details className="dropdown">
-                <summary>Theme</summary>
-                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                  {themes?.map((theme) => {
-                    return (
-                      <div className="btn btn-sm my-1 rounded font-normal hover:cursor-pointer">
-                        {theme?.label}
-                      </div>
-                    );
-                  })}
-                </ul>
-              </details>
+              <ThemeSelector />
             </li>
           </ul>
         </div>
