@@ -7,7 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   daisyui: {
-    themes: ["forest", "pastel", "retro", "wireframe"],
+    themes: ["wireframe", "halloween"],
   },
   plugins: ["@tailwindcss/typography", require("daisyui")],
 };

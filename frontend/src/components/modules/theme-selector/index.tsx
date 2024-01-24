@@ -1,56 +1,77 @@
 "use client";
 
-import React, { useEffect } from "react";
+// Next & React imports
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { useThemeDetector } from "@/react-hooks/theme-detector";
 
-const themes = [
-  { label: "Forest", icon: "", value: "forest" },
-  { label: "Pastel", icon: "", value: "pastel" },
-  { label: "Retro", icon: "", value: "retro" },
-  { label: "Wireframe", icon: "", value: "wireframe" },
-];
+// Icon Imports
+import LightThemeIcon from "/public/icons/light_theme_icon.svg";
+import DarkThemeIcon from "/public/icons/dark_theme_icon.svg";
+import SystemThemeIcon from "/public/icons/system_theme_icon.svg";
 
-// Types
-type Theme = {
-  label: string;
-  icon: string;
-  value: string;
-};
+// Consts
+const light: string = "wireframe";
+const dark: string = "halloween";
 
 function ThemeSelector() {
+  // Component States
+  const [currentTheme, setCurrentTheme] = useState("sys");
+  const [currentThemeIcon, setCurrentThemeIcon] = useState("");
+
+  // Check if the system has dark theme
+  const isSysDarkTheme = useThemeDetector();
+
+  // Mounted
   useEffect(() => {
     // Check the selected theme, If exists, apply the theme upon mount
-    const preSetTheme = localStorage.getItem("theme");
+    setCurrentThemeIcon(SystemThemeIcon);
+    setCurrentTheme("sys");
 
-    const selectedTheme = themes?.find((theme) => theme?.value === preSetTheme);
-    if (selectedTheme) applySelectedTheme(selectedTheme);
+    if (isSysDarkTheme) return applySelectedTheme(dark);
+
+    if (!isSysDarkTheme) return applySelectedTheme(light);
   }, []);
 
-  const applySelectedTheme = (theme: Theme) => {
+  const applySelectedTheme = (theme: string) => {
     // Modify the root HTML attribute to set the theme
-    document.documentElement.setAttribute("data-theme", theme.value);
+    document.documentElement.setAttribute("data-theme", theme);
 
     // Set the selected theme to local storage
-    localStorage.setItem("theme", theme.value);
+    localStorage.setItem("theme", theme);
+
+    return;
+  };
+
+  const handleThemeCycle = () => {
+    if (currentTheme === "dark") {
+      setCurrentTheme("light");
+      applySelectedTheme(light);
+      setCurrentThemeIcon(LightThemeIcon);
+    }
+    if (currentTheme === "light") {
+      setCurrentTheme("sys");
+      isSysDarkTheme ? applySelectedTheme(dark) : applySelectedTheme(light);
+      setCurrentThemeIcon(SystemThemeIcon);
+    }
+
+    if (currentTheme === "sys") {
+      setCurrentTheme("dark");
+      applySelectedTheme(dark);
+      setCurrentThemeIcon(DarkThemeIcon);
+    }
   };
 
   return (
     <>
-      <details className="dropdown">
-        <summary>Theme</summary>
-        <ul className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
-          {themes?.map((theme) => {
-            return (
-              <div
-                key={theme.value}
-                onClick={() => applySelectedTheme(theme)}
-                className="btn btn-sm my-1 rounded font-normal hover:cursor-pointer"
-              >
-                {theme?.label}
-              </div>
-            );
-          })}
-        </ul>
-      </details>
+      <summary onClick={handleThemeCycle}>
+        <Image
+          src={currentThemeIcon}
+          alt="light theme icon"
+          height={18}
+          width={18}
+        ></Image>
+      </summary>
     </>
   );
 }
