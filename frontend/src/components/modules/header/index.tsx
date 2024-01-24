@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Component Imports
-import ThemeSelector from "@/components/main/theme-selector";
+import ThemeSelector from "@/components/modules/theme-selector";
 
 // Misc Imports
 import JobifyLogo from "/public/icons/jobify_icon_32.svg";
