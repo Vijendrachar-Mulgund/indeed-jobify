@@ -16,7 +16,7 @@ const dark: string = "halloween";
 
 function ThemeSelector() {
   // Component States
-  const [currentTheme, setCurrentTheme] = useState("sys");
+  const [currentTheme, setCurrentTheme] = useState("");
   const [currentThemeIcon, setCurrentThemeIcon] = useState("");
 
   // Check if the system has dark theme
@@ -24,14 +24,18 @@ function ThemeSelector() {
 
   // Mounted
   useEffect(() => {
-    // Check the selected theme, If exists, apply the theme upon mount
-    setCurrentThemeIcon(SystemThemeIcon);
-    setCurrentTheme("sys");
+    if (isSysDarkTheme) {
+      setCurrentTheme("dark");
+      setCurrentThemeIcon(DarkThemeIcon);
+      return applySelectedTheme(dark);
+    }
 
-    if (isSysDarkTheme) return applySelectedTheme(dark);
-
-    if (!isSysDarkTheme) return applySelectedTheme(light);
-  }, []);
+    if (!isSysDarkTheme) {
+      setCurrentTheme("light");
+      setCurrentThemeIcon(LightThemeIcon);
+      return applySelectedTheme(light);
+    }
+  }, [isSysDarkTheme]);
 
   const applySelectedTheme = (theme: string) => {
     // Modify the root HTML attribute to set the theme
@@ -44,18 +48,12 @@ function ThemeSelector() {
   };
 
   const handleThemeCycle = () => {
+    console.log("Theme");
     if (currentTheme === "dark") {
       setCurrentTheme("light");
       applySelectedTheme(light);
       setCurrentThemeIcon(LightThemeIcon);
-    }
-    if (currentTheme === "light") {
-      setCurrentTheme("sys");
-      isSysDarkTheme ? applySelectedTheme(dark) : applySelectedTheme(light);
-      setCurrentThemeIcon(SystemThemeIcon);
-    }
-
-    if (currentTheme === "sys") {
+    } else if (currentTheme === "light") {
       setCurrentTheme("dark");
       applySelectedTheme(dark);
       setCurrentThemeIcon(DarkThemeIcon);
@@ -65,12 +63,16 @@ function ThemeSelector() {
   return (
     <>
       <summary onClick={handleThemeCycle}>
-        <Image
-          src={currentThemeIcon}
-          alt="light theme icon"
-          height={18}
-          width={18}
-        ></Image>
+        {currentThemeIcon ? (
+          <Image
+            src={currentThemeIcon}
+            alt="light theme icon"
+            height={18}
+            width={18}
+          ></Image>
+        ) : (
+          ""
+        )}
       </summary>
     </>
   );
