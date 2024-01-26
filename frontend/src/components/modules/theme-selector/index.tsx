@@ -3,7 +3,7 @@
 // Next & React imports
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useThemeDetector } from "@/react-hooks/theme-detector";
+import { useThemeDetector } from "@/hooks/theme-detector";
 
 // Icon Imports
 import LightThemeIcon from "/public/icons/light_theme_icon.svg";
