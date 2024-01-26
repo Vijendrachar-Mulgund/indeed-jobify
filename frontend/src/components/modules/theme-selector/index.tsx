@@ -8,7 +8,6 @@ import { useThemeDetector } from "@/hooks/theme-detector";
 // Icon Imports
 import LightThemeIcon from "/public/icons/light_theme_icon.svg";
 import DarkThemeIcon from "/public/icons/dark_theme_icon.svg";
-import SystemThemeIcon from "/public/icons/system_theme_icon.svg";
 
 // Consts
 const light: string = "wireframe";
@@ -48,7 +47,6 @@ function ThemeSelector() {
   };
 
   const handleThemeCycle = () => {
-    console.log("Theme");
     if (currentTheme === "dark") {
       setCurrentTheme("light");
       applySelectedTheme(light);
