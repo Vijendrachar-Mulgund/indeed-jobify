@@ -1,52 +1,7 @@
-"use client";
-
-// Next & React imports
-import React, { useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-
-// Component Imports
-import ThemeSelector from "@/components/modules/theme-selector";
-
-// Icon Imports
-import JobifyLogo from "/public/icons/jobify_icon_32.svg";
-
-// Initializations
-import { initDeviceFingerprint } from "@/fingerprintjs";
+import React from "react";
 
 function Header() {
-  useEffect(() => {
-    // Initialize Fingerprint
-    initDeviceFingerprint();
-  }, []);
-
-  return (
-    <header className="navbar bg-base-100">
-      <div className="mx-auto h-full w-full max-w-[100rem]">
-        {/* Left section */}
-        <div className="flex-1">
-          <Link href={"/"} className="btn btn-ghost text-xl">
-            <Image src={JobifyLogo} alt="Jobify Logo" />
-            Jobify
-          </Link>
-        </div>
-
-        {/* Right section */}
-        <div className="flex-row items-center">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link href={"/"}>Link</Link>
-            </li>
-
-            {/* Theme Selector */}
-            <li>
-              <ThemeSelector />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </header>
-  );
+  return <div>Header</div>;
 }
 
 export default Header;
