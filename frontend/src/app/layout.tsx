@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Header from "@/components/modules/header";
 import { ReduxProvider } from "@/redux/provider";
+import { ThemeProvider } from "@/components/modules/theme-provider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -19,12 +20,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} relative`}>
         <ReduxProvider>
-          <Header />
-          <section className="mx-auto w-full max-w-[100rem]">
-            {children}
-          </section>
+          <ThemeProvider attribute="class" defaultTheme="system">
+            <Header />
+            <section className="mx-auto w-full max-w-[100rem]">
+              {children}
+            </section>
+          </ThemeProvider>
         </ReduxProvider>
       </body>
     </html>
