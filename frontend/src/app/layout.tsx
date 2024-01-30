@@ -20,11 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} relative`}>
+      <body className={`${montserrat.className} relative `}>
         <ReduxProvider>
           <ThemeProvider attribute="class" defaultTheme="system">
             <Header />
-            <section className="mx-auto w-full max-w-[100rem]">
+            <section className="mx-auto w-full max-w-[90rem]">
               {children}
             </section>
           </ThemeProvider>
