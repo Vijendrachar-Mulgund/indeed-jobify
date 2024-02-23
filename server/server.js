@@ -3,7 +3,7 @@ import express from "express";
 
 import mongoose from "mongoose";
 
-// Init the Experess server
+// Init the Express server
 const app = express();
 
 // Imports
@@ -18,10 +18,14 @@ import authRoutes from "./routes/authRoutes.js";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
 import { notFoundMiddleware } from "./middlewares/notFoundMiddleware.js";
 
+// Util files
 import { corsOptions } from "./utils/corsConfig.js";
+import { getEnvPath } from "./utils/envPath.js";
 
 // Configure the Environment variables
-dotenv.config();
+dotenv.config({
+  path: getEnvPath(),
+});
 
 // CORS handling
 app.use(cors(corsOptions()));
@@ -43,7 +47,7 @@ app.use(notFoundMiddleware);
 
 let server;
 
-// Connet to DB and start the server
+// Connect to DB and start the server
 const serverInit = async () => {
   try {
     await connectToMongoDB();
